@@ -1,5 +1,5 @@
 
-# Sequencing and QC
+# Module #1: Sequencing and QC
 
 ***
 Lead: Sara J Javornik Cregeen
