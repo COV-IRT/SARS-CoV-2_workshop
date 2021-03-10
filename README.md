@@ -15,7 +15,7 @@ Lead: Fritz J Sedlazeck
 Baylor College of Medicine
 ***
 
-#Day 2 (Tuesday, March 30th, 2021)
+# Day 2 (Tuesday, March 30th, 2021)
 
 ##  Module #3: [Reference-guided assembly and low frequency variant calling](module3/README.md)
 
