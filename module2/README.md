@@ -1,5 +1,5 @@
 
-#  Read mapping and variant calling
+#  Module #2: Read mapping and variant calling
 
 ***
 Lead: Fritz J Sedlazeck
