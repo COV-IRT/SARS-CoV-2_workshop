@@ -2,7 +2,7 @@
 #  Module #3: Reference-guided assembly and low frequency variant calling
 
 ***
-Lead: Todd J Treangen
+Leads: Yunxi Liu, Nicolae Sapoval, and Todd Treangen 
 Rice University
 ***
 
