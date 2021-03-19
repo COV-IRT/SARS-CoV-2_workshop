@@ -7,12 +7,12 @@ Rice University
 ***
 
 ## Goals of this module
-* This hands on tutorial will teach you how to FIXME
+* This hands on tutorial will teach you how to call single nucletide variants (SNVs) and indels from the aligned viral sequencing reads (SAM/BAM files), and how to subsequently create a reference-guided assembly of the SARS-CoV-2 genome.
 
 ## Learning Objectives
-* Objective 1
-* Objective 2
-* Objective 3
+* Be able to pre-process BAM files to prepare them for variant calling
+* Use variant calling software LoFreq to call SNVs and indels
+* Assemble a SARS-CoV-2 genome using a reference genome and variant calling output file (VCF)
 
 ***
 
