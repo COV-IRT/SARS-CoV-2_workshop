@@ -71,6 +71,9 @@ lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.in
 
 **Note:** The first step is optional if you don't plan to call indels. To just call SNPs you would omit the `--call-indels` flag to `lofreq call`, and you can skip the first stpe in that case.
 
+An example of BAM file with indel qualities for the SRR12447392 sample of SARS-CoV-2 visualized using IGV browser.
+![](Figures/IGV-SRR12447392-indel-quals.png)
+
 ## Reference-guided assembly
 
 The first step to starting your assembly --> context to DNAnexus
