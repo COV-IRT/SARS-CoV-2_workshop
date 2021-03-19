@@ -114,4 +114,7 @@ bcftools index your_output.filtered.af50.vcf.gz
 cat SARS-CoV-2-reference.fasta | bcftools consensus your_output.filtered.af50.vcf.gz > your_output.consensus.fasta
 ```
 
+An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
+![](Figures/IGV-Zoom-in.png)
+
 Next: [module4!](module4.rst)
