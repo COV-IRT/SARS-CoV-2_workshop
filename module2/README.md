@@ -45,11 +45,26 @@ What data/ directories you can see now?
 Move to Module2  
 `cd Module2`  
 
+Make sure you add other conda branches:
+```
+conda config --add channels conda-forge
+conda config --add channels bioconda
+```
 
-Install BWA aligner
+Install Tools  
 ```
-conda install -c bioconda -y bwa
+conda install bwa=0.7.17
 ```
+
+Is it running?
+`bwa -h`
+
+Install SV caller:    
+`conda install manta=1.6.0`
+
+Install SNVs caller:  
+`conda install lofreq=2.1.5`
+
 
 Accesws the data: FIXME
 ```
