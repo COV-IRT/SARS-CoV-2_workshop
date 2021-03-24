@@ -51,24 +51,18 @@ conda config --add channels conda-forge
 conda config --add channels bioconda
 ```
 
-Install Tools  
-```
-conda install bwa=0.7.17
-```
+Create environement:
+`conda create -n SVanalysis python=2.7 bwa=0.7.17 manta=1.6.0 lofreq=2.1.5`
 
-Is it running?  
-`bwa mem -h`  
+Activate the environement:
+`conda activate SVanalysis`
 
-Install SV caller:    
-`conda install manta=1.6.0`
 
-Install SNVs caller:  
-`conda install lofreq=2.1.5`
 
 ## Time to run analysis
-#**First Align Reads**
+# **First Align Reads**
 ```
-bwa mem 
+bwa mem
 ```
 
 <!-- Accesws the data: FIXME
