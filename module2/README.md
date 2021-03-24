@@ -29,7 +29,7 @@ The first step to starting read mapping --> context to DNAnexus
 
 Install XYZ
 ```
-conda install -c bioconda -y XYZ
+conda install -c bioconda -y bwa
 ```
 
 Accesws the data: FIXME
@@ -37,6 +37,6 @@ Accesws the data: FIXME
 cd awesome_data
 
 ```
-This dataset contains paired end reads. 
+This dataset contains paired end reads.
 
 Next: [module3!](module3.rst)
