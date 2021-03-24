@@ -51,10 +51,10 @@ conda config --add channels conda-forge
 conda config --add channels bioconda
 ```
 
-Create environement:
+Create environement:  
 `conda create -n SVanalysis python=2.7 bwa=0.7.17 manta=1.6.0 lofreq=2.1.5`
 
-Activate the environement:
+Activate the environement:  
 `conda activate SVanalysis`
 
 
@@ -63,6 +63,7 @@ Export Manta
 
 Try it now:  
 `python $MANTA/configManta.py`
+
 
 ## Time to run analysis
 # **First Align Reads**
