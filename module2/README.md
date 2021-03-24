@@ -9,8 +9,9 @@ Baylor College of Medicine
 ## Goals of this module
 * This hands on tutorial will teach you how to:
 1. Align the given reads using BWA-mem
-2. Identify Structural Variations using Manta
-3. Detect single-nucleotide variations using LoFreq
+2. samtools for aligning staistics
+3. Identify Structural Variations using Manta
+4. Detect single-nucleotide variations using LoFreq
 
 ## Learning Objectives
 *   Identify Structural variations (SVs) (>=50bp)
@@ -32,6 +33,13 @@ Baylor College of Medicine
 The first step to starting read mapping --> context to DNAnexus
 
 *Connect to your DNAnexus instance and open up a shell prompt.*
+
+* download all data using
+`dx download -r *`
+What data/ directories you can see now?
+
+`ls -l`
+
 
 Install BWA aligner
 ```
