@@ -27,7 +27,7 @@ The first step to starting read mapping --> context to DNAnexus
 
 *Connect to your DNAnexus instance and open up a shell prompt.*
 
-Install XYZ
+Install BWA aligner
 ```
 conda install -c bioconda -y bwa
 ```
