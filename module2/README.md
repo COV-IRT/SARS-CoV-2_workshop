@@ -34,16 +34,16 @@ The first step to starting read mapping --> context to DNAnexus
 
 *Connect to your DNAnexus instance and open up a shell prompt.*
 
-* Prepare for running the analysis
+# Prepare for running the analysis
 
-download all data using
-`dx download -r *`
+download all data using  
+`dx download -r *`  
 
-What data/ directories you can see now?
-`ls -l`
+What data/ directories you can see now?  
+`ls -l`  
 
-Move to Module2
-`cd Module2`
+Move to Module2  
+`cd Module2`  
 
 
 Install BWA aligner
