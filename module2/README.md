@@ -13,9 +13,15 @@ Baylor College of Medicine
 3. Detect single-nucleotide variations using LoFreq
 
 ## Learning Objectives
-* Objective 1
-* Objective 2
-* Objective 3
+*   Identify Structural variations (SVs) (>=50bp)
+*   Detect SNVs
+*   Summary statistics for the alignment
+*   How do SVs look like?
+    *   Size distribution
+    *   Types
+*   SNVs
+    *   How many we identified
+    *   How many substitutions vs indels in SNVs?
 
 ***
 
