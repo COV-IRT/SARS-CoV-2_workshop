@@ -58,6 +58,11 @@ Activate the environement:
 `conda activate SVanalysis`
 
 
+Export Manta  
+`MANTA=/opt/conda/envs/SVanalysis/share/manta-1.6.0-0/bin/"`
+
+Try it now:  
+`python $MANTA/configManta.py`
 
 ## Time to run analysis
 # **First Align Reads**
