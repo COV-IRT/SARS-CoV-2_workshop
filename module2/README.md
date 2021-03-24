@@ -65,12 +65,17 @@ Install SV caller:
 Install SNVs caller:  
 `conda install lofreq=2.1.5`
 
+## Time to run analysis
+#**First Align Reads**
+```
+bwa mem 
+```
 
-Accesws the data: FIXME
+<!-- Accesws the data: FIXME
 ```
 cd awesome_data
 
 ```
-This dataset contains paired end reads.
+This dataset contains paired end reads. -->
 
-Next: [module3!](module3.rst)
+<!-- Next: [module3!](module3.rst) -->
