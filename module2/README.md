@@ -56,8 +56,8 @@ Install Tools
 conda install bwa=0.7.17
 ```
 
-Is it running?
-`bwa -h`
+Is it running?  
+`bwa mem -h`  
 
 Install SV caller:    
 `conda install manta=1.6.0`
