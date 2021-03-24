@@ -7,7 +7,10 @@ Baylor College of Medicine
 ***
 
 ## Goals of this module
-* This hands on tutorial will teach you how to FIXME
+* This hands on tutorial will teach you how to:
+1. Align the given reads using BWA-mem
+2. Identify Structural Variations using Sniffles
+3. Detect single-nucleotide variations using LoFreq
 
 ## Learning Objectives
 * Objective 1
