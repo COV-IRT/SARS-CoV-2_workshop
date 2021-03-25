@@ -136,7 +136,19 @@ samtools view -c -f 2048  our_mapped_reads.sort.bam
  Again feel free to check out what the tag 2048 means over at  https://broadinstitute.github.io/picard/explain-flags.html 
  
  
- 
+ Lastly we can also compute the reads that are mapped on the + vs. - strand. For some type of library preparation this is an important metric:
+ ```
+ samtools view -c -q 20 -f 16  our_mapped_reads.sort.bam
+ samtools view -c -q 20 -f 0  our_mapped_reads.sort.bam
+```
+This time the -f 16 filters for reads on the - strand and the -f 0 for reads that mapped to the + strand. 
+
+
+## Variant calling: 
+
+Now that we have confidence in our mapped read file and we know its the right format and sorte we can continue with the variant calling. Firt we will call variants for SNV and subsequently for SV. 
+
+### SNV calling: 
 
 
 Now lets take some time to explore the mapped read file. 
