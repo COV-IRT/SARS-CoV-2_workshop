@@ -11,7 +11,7 @@ Baylor College of Medicine
 
 
 ## Goals of this module
-The goal of this module is to get you familiarized with the mapping of Illumina reads to the SARS-CoV-2 genome and to identify variations. For the latter we will focus on SNV (point mutations) and Structural Variations (SV). In addition to identifying these two types of variations we will further show you one way to assess the quality and summary statistics across the mapping, SNV and SV calling. 
+The goal of this module is to get you familiarized with the mapping of Illumina reads to the [SARS-CoV-2 genome](https://www.ncbi.nlm.nih.gov/nuccore/NC_045512.2?report=fasta) and to identify variations. For the latter we will focus on SNV (point mutations) and Structural Variations (SV). In addition to identifying these two types of variations we will further show you one way to assess the quality and summary statistics across the mapping, SNV and SV calling. 
 
 ### The main steps in this Module are:
 1. Align the reads from Module 1 ([BWA-mem](https://github.com/lh3/bwa))
@@ -46,7 +46,7 @@ mkdir mapping
 cd mapping
 ```
 
-Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. `BWA mem` is currently one of the standard short read based mapper and that is why we are using it here.  To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
+Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. `BWA mem` is currently one of the standard short read based mapper and that is why we are using it here. To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
 
 ```
 bwa
@@ -70,7 +70,7 @@ This executes bwa mem with `2` threads (`-t` parameter) give our previously inde
 
 After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file (see SAM file format specification [here](https://samtools.github.io/hts-specs/SAMv1.pdf)) and we can take a look. As highlighted in the lecture we have a header in this file indicated with `@` and then entries per read per line. 
 
-### Converting a SAM file to a BAM file
+#### 3. Converting a SAM file to a BAM file
 
 For subsequent analysis we need to compress (SAM -> BAM) the file. For this we are using [samtools](https://github.com/samtools/samtools) with the option: `view`
 
@@ -80,7 +80,7 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version. 
 
-### Sorting a BAM file
+#### 4. Sorting a BAM file
 
 Next we need to sort the file according to read mapping locations. For this we again are using `samtools` but this time the `sort` option. 
 
@@ -102,14 +102,14 @@ Since these files contain all the same information we don't need to keep the lar
 rm our_mapped_reads.bam 
 rm our_mapped_reads.sam 
 ```
-### Creating a BAM index file
+#### 5. Creating a BAM index file
 
 The last step that is necessary for a subsequent analysis is to index the sorted and compressed read file:
 ```
 samtools index our_mapped_reads.sort.bam
 ```
 
-Thus in the end you should have 2 files: `our_mapped_reads.sort.bam` and `our_mapped_reads.sort.bam.bai` . The latter is the index file. 
+Thus in the end you should have 2 files: `our_mapped_reads.sort.bam` and `our_mapped_reads.sort.bam.bai`. The latter is the index file. 
 
 ### Mapping QC
 
@@ -122,7 +122,7 @@ To compute the number of mapped reads we run:
 ```
  samtools view -c -F 4 our_mapped_reads.sort.bam
  ```
- The parameter `-c` tells samtools view to only count and report that number to you. The parameter `-F 4` tells it to only use reads that are in disagreement with the flag:4 . You can see based on the above URL that this flag represents unmapped reads. Thus we are querying not unmapped reads , which is the count of mapped reads. 
+ The parameter `-c` tells samtools view to only count and report that number to you. The parameter `-F 4` tells it to only use reads that are in disagreement with the flag:4 . You can see based on the above [URL](https://broadinstitute.github.io/picard/explain-flags.html) that this flag represents unmapped reads. Thus we are querying not unmapped reads, which is the count of mapped reads. 
  
 Often we want to restrict this given a certain mapping quality threshold. This can be done like this:
 
@@ -183,7 +183,7 @@ In the end the program lofreq has produced a VCF file as its output: `our_snv.vc
 less -S our_snv.vcf
 ```
 Note to terminate this process press `q` to close less. 
-As we can see the VCF file follows a certain standard as it has first specified meta information as part of the header (#). This is then followed by each line showing a single variant. 
+As we can see the VCF file follows a certain standard as it has first specified meta information as part of the header (`#`). This is then followed by each line showing a single variant. 
 
 Take your time to look into this file. Some of the important tags that are defined are `AF` (allele frequency within the sample), `DP4` list of supporting reads for reference and alternative split up over `+/-` strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: `DP` and compare it to `DP4`. 
 
@@ -192,7 +192,7 @@ First we want to count the total number of SNV in this file:
 ```
 grep -vc '#' our_snv.vcf
 ```
-This will count the number of lines that don't have an # in it. `-v` is inverting the match and `-c` is counting the number of these matches. 
+This will count the number of lines that don't have an `#` in it. `-v` is inverting the match and `-c` is counting the number of these matches. 
 
 If we want to know if there is an imbalance in the nucleotides that has been changed we could use something simple like this:
 ```
