@@ -235,9 +235,9 @@ This should just take seconds as it initiates the folder structure and specifies
 python Out_Manta/runWorkflow.py -j 2 -m local -g 10
 ```
 
-This will launch the Manta pipeline that we previously configured. `-j` specifies the number of CPU threads, `-m` local indicates that it should not try to run things on different nodes or instances and `-g 30` specifies the available memory for the process in GB.
+This will launch the Manta pipeline that we previously configured. `-j` specifies the number of CPU threads (2 in our case), `-m` local indicates that it should not try to run things on different nodes or instances and `-g 30` specifies the available memory for the process in GB.
 
-Manta now searches for abnormal paired-end reads and split reads across our mapped reads. These will be analyzed together and clustered to identify SV in these samples. After ~2-3 minutes you should see that the program has finished.
+Manta now searches for abnormal paired-end reads and split-reads across our mapped reads. These will be analyzed together and clustered to identify SV in these samples. After ~2-3 minutes you should see that the program has finished.
 
 Our SV calling results can be found here:
 ```
