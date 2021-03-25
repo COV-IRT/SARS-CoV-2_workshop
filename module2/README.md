@@ -9,6 +9,7 @@ TA: ‪Medhat Mahmoud + Sairam Behera
 Baylor College of Medicine
 ***
 
+
 ## Goals of this module
 The goal of this module is to get you familiarized with the mapping of Illumina reads to the SARS-CoV-2 genome and to identify variations. For the latter we will focus on SNV (point mutations) and Structural Variations (SV). In addition to identfying these two types of variations we will further show you one way to assess the quality and summary statistics across the mapping, SNV and SV calling. 
 
