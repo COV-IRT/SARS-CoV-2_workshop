@@ -81,12 +81,6 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version.
 
-*bonus*  
-You can get bam direct output from `bwa mem` as follow:
-```
-bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.bam -
-```
-Where  `-@2` means use two threads, and `-` means take input from stdout  
 
 #### 4. Sorting a BAM file
 
@@ -110,6 +104,15 @@ Since these files contain all the same information we don't need to keep the lar
 rm our_mapped_reads.bam
 rm our_mapped_reads.sam
 ```
+
+*bonus*    
+You can get bam direct output from `bwa mem` as follow:
+```
+bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.bam -
+```
+Where  `-@2` means use two threads, and `-` means take input from stdout  
+
+
 #### 5. Creating a BAM index file
 
 The last step that is necessary for a subsequent analysis is to index the sorted and compressed read file:
