@@ -167,6 +167,37 @@ Overall this step will run for a couple of minutes so feel free to drink somethi
 
 This will first start to index our reference.fasta and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimu 10 (--min-mq 10). 
 
+In the end the program lofreq has produced a VCF file as its output: our_snv.vcf. We can open this file like:
+
+```
+less -S our_snv.vcf
+```
+Note to terminate this process press q to close less. 
+As we can see the VCF file follows a certain standard as it has first specified meta inforation as part of the header (#). This is then followed by each line showing a single variant. 
+
+Take your time to look into this file. Some of the improtant tags that are defined are AF (allele frequency within the sample), DP4 list of supporting reads for reference and alternative split up over +/- strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: DP and compare it to DP4. 
+
+To get a feeling about our file we want to query it a little to summarize our SNV calls.
+First we want to count the total number of SNV in this file:
+```
+grep -vc '#' our_snv.vcf
+```
+This will count the number of lines that dont have an # in it. -v is inverting the match and -c is counting the number of these matches. 
+
+If we want to know if there is an imbalance in the nucleotides that has been changed we could use something simple like this:
+```
+grep -v '#' our_snv.vcf | cut -f 5 |sort | uniq -c
+```
+Again we are slecting agains the header (-v '#') then extracting coloumn 5 (the alternative nucleotide) and sorting and counting the occurance of each nucleotide (uniq ) with the -c option to count. You should see a clear preferecne for an T and A nucleotide that has been inserted. 
+
+We can also very roughly and quickly see if there are hotspots for SNV along the genome:
+```
+grep -v '#' our_snv.vcf | cut -f 2 | awk '{print int($1/100)*100}'  | sort | uniq -c  | awk '$1 > 5 {print $0 }' | sort -n -k 2 | less
+```
+Here we extract similar to before the 2nd column (SNV position) and bin it by 100bp. Next we sort and count the occurances and filter to have only regions that have more than 5 SNV within their 100bp. Lastly we make sure that the postions of the bins are sorted in the output. 
+
+A set of very useful methods are bcftools and vcftools to further filter and manipulate these files. 
+
 ### SV calling: 
 In the end we want to also identify Structural Vartions (SV). Here we are simply using Manta, wich was mainly designed to identify SV across a human genome. 
 
@@ -185,8 +216,12 @@ python Out_Manta/runWorkflow.py -j 2 -m local -g 10
 
 This will launch the Manta pipeline that we previous configred. -j specfies the number of CPU threads, -m local indicates that it should not try to run things on different nodes or instances and -g 30 specifies the available memory for the process in GB. 
 
-Manta now searches for abnormal paired-end reads and split reads across our mapped reads. These will be analyzed together and clustered to identify SV in this samples. 
+Manta now searches for abnormal paired-end reads and split reads across our mapped reads. These will be analyzed together and clustered to identify SV in this samples. After ~2-3 minutes you should see that the program has finished. 
 
+Our SV calling results can be found here:
+```
+ls Out_Manta/results/variants
+```
 
 
 Now lets take some time to explore the mapped read file. 
