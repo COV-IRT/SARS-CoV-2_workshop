@@ -70,6 +70,8 @@ This executes bwa mem with `2` threads (`-t` parameter) give our previously inde
 
 After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file (see SAM file format specification [here](https://samtools.github.io/hts-specs/SAMv1.pdf)) and we can take a look. As highlighted in the lecture we have a header in this file indicated with `@` and then entries per read per line. 
 
+#### Converting a SAM file to a BAM file
+
 For subsequent analysis we need to compress (SAM -> BAM) the file. For this we are using [samtools](https://github.com/samtools/samtools) with the option: `view`
 
 ```
