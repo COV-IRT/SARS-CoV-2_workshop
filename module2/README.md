@@ -68,16 +68,16 @@ Next we are ready to start mapping the fastq reads to the genome itself. For thi
 
 This executes bwa mem with `2` threads (`-t` parameter) give our previously indexed `reference.fasta` and the two fastq files representing the Illumina paired end reads. 
 
-After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file and we can take a look. As highlighted in the lecture we have a header in this file indicated with @ and then entries per read per line. 
+After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file and we can take a look. As highlighted in the lecture we have a header in this file indicated with `@` and then entries per read per line. 
 
-For subsequent analysis we need to compress (SAM -> BAM) the file. For this we are using `samtools` with the option: `view`
+For subsequent analysis we need to compress (SAM -> BAM) the file. For this we are using [samtools](https://github.com/samtools/samtools) with the option: `view`
 
 ```
 samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 ```
 
-The options `-h` ensures that the header is kept for the output file and the option `-b` tells samtools that we want to obtain the compressed (BAM) version. 
-Next we need to sort the file according to read mapping locations. For this we again are using samtools but this time the sort option. 
+The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version. 
+Next we need to sort the file according to read mapping locations. For this we again are using `samtools` but this time the `sort` option. 
 
 ```
 samtools sort our_mapped_reads.bam > our_mapped_reads.sort.bam
