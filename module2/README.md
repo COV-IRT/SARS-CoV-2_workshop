@@ -106,9 +106,9 @@ rm our_mapped_reads.sam
 ```
 
 *bonus*    
-You can get bam direct output from `bwa mem` as follow:
+You can get sorted bam direct output from `bwa mem` as follow:
 ```
-bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.bam -
+bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.sort.bam -
 ```
 Where  `-@2` means use two threads, and `-` means take input from stdout  
 
@@ -131,9 +131,9 @@ First we want to count the mapped and unmapped reads. This can be simply done us
 To compute the number of mapped reads we run:
 
 ```
- samtools view -c -F 4 our_mapped_reads.sort.bam
- ```
- The parameter `-c` tells samtools view to only count and report that number to you. The parameter `-F 4` tells it to only use reads that are in disagreement with the flag:4 . You can see based on the above [URL](https://broadinstitute.github.io/picard/explain-flags.html) that this flag represents unmapped reads. Thus we are querying not unmapped reads, which is the count of mapped reads.
+samtools view -c -F 4 our_mapped_reads.sort.bam
+```
+ The parameter `-c` tells samtools view, to only count and report that number to you. The parameter `-F 4` tells it to only use reads that are in disagreement with the flag:4 . You can see based on the above [URL](https://broadinstitute.github.io/picard/explain-flags.html) that this flag represents unmapped reads. Thus we are querying not unmapped reads, which is the count of mapped reads.
 
 Often we want to restrict this given a certain mapping quality threshold. This can be done like this:
 
@@ -167,9 +167,9 @@ This time the `-f 16` filters for reads on the `-` strand and the `-f 0` for rea
 
 ## Variant calling
 
-Now that we have confidence in our mapped read file and we know its the right format and sorte we can continue with the variant calling. First we will call variants for SNV and subsequently for SV.
+Now that we have confidence in our mapped reads file and we know that it's the right format and reads are sorted, we can continue with the variant calling. First, we will call variants for SNV and subsequently for SV.  
 
-To keep everything nicely and tightly we will change directory and create one call SNV:
+To keep everything nice and tight we will change directory and create one called SNV:
 ```
 cd ..
 mkdir SNV
@@ -179,16 +179,16 @@ cd SNV
 ### SNV calling
 For SNV calling we are going to use [LoFreq](https://github.com/andreas-wilm/lofreq3), which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/
 
-Given our mapped read file and our reference fasta file we can execute lofreq like this:
+Given our mapped read file and our reference fasta file we can execute Lofreq as follow:
 
 ```
 lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
 ```
 Overall this step will run for a couple of minutes so feel free to drink something:tea::coffee:  or stretch:walking::running:! :smile:
 
-This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`).
+This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNVs. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`).
 
-In the end the program lofreq has produced a VCF file as its output: `our_snv.vcf`. We can open this file like:
+In the end the program `lofreq` has produced a VCF file as its output: `our_snv.vcf`. We can open this file like:
 
 ```
 less -S our_snv.vcf
@@ -211,16 +211,16 @@ grep -v '#' our_snv.vcf | cut -f 5 |sort | uniq -c
 ```
 Again we are selecting against the header (`-v '#'`) then extracting column 5 (the alternative nucleotide) and sorting and counting the occurrence of each nucleotide (uniq ) with the `-c` option to count. You should see a clear preference for an `T` and `A` nucleotide that has been inserted.
 
-We can also very roughly and quickly see if there are hotspots for SNV along the genome:
+We can also roughly and quickly see if there are hotspots for SNV along the genome:
 ```
-grep -v '#' our_snv.vcf | cut -f 2 | awk '{print int($1/100)*100}'  | sort | uniq -c  | awk '$1 > 5 {print $0 }' | sort -n -k 2 | less
+grep -v '#' our_snv.vcf | cut -f 2 | awk '{print int($1/100)*100}'  | sort | uniq -c  | awk '$1 > 5 {print $0 }' | sort -n -k 2,2 | less
 ```
-Here we extract similar to before the 2nd column (SNV position) and bin it by 100bp. Next we sort and count the occurances and filter to have only regions that have more than 5 SNV within their 100bp. Lastly we make sure that the positions of the bins are sorted in the output.
+Here we extract similar to before the 2nd column (SNV position) and bin it by 100bp. Next we sort and count the occurrences and filter to have only regions that have more than 5 SNV within their 100bp. Lastly we make sure that the positions of the bins are sorted in the output.
 
 A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/) and [vcftools](https://vcftools.github.io/man_latest.html) to further filter and manipulate these files.
 
 ### SV calling
-In the end we want to also identify Structural Variations (SV). Here we are simply using [Manta](https://github.com/Illumina/manta), which was mainly designed to identify SV across a human genome.
+In the end we want to also identify Structural Variations (SVs). Here we are simply using [Manta](https://github.com/Illumina/manta), which was mainly designed to identify SV across a human genome.
 
 Manta requires two steps:
 
