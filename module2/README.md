@@ -175,7 +175,7 @@ lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort
 ```
 Overall this step will run for a couple of minutes so feel free to drink something or stretch! :) 
 
-This will first start to index our reference.fasta and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`). 
+This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`). 
 
 In the end the program lofreq has produced a VCF file as its output: `our_snv.vcf`. We can open this file like:
 
@@ -206,20 +206,20 @@ grep -v '#' our_snv.vcf | cut -f 2 | awk '{print int($1/100)*100}'  | sort | uni
 ```
 Here we extract similar to before the 2nd column (SNV position) and bin it by 100bp. Next we sort and count the occurances and filter to have only regions that have more than 5 SNV within their 100bp. Lastly we make sure that the positions of the bins are sorted in the output. 
 
-A set of very useful methods are bcftools and vcftools to further filter and manipulate these files. 
+A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/) and [vcftools](https://vcftools.github.io/man_latest.html) to further filter and manipulate these files. 
 
 ### SV calling: 
 In the end we want to also identify Structural Variations (SV). Here we are simply using Manta, which was mainly designed to identify SV across a human genome. 
 
 Manta requires two steps:
 
-1. Initiate the run:
+##### 1. Initiate the run:
 ```
 configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
-2. Run the analysis:
+##### 2. Run the analysis:
 ```
 python Out_Manta/runWorkflow.py -j 2 -m local -g 10
 ```
