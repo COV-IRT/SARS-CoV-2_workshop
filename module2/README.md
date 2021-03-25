@@ -173,7 +173,7 @@ Given our mapped read file and our reference fasta file we can execute lofreq li
 ```
 lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
 ```
-Overall this step will run for a couple of minutes so feel free to drink something:tea::coffee:  or stretch:walking::running:! :smile: 
+Overall this step will run for a couple of minutes so feel free to drink something :tea::coffee:  or stretch:walking::running:! :smile: 
 
 This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`). 
 
@@ -198,7 +198,7 @@ If we want to know if there is an imbalance in the nucleotides that has been cha
 ```
 grep -v '#' our_snv.vcf | cut -f 5 |sort | uniq -c
 ```
-Again we are selecting against the header (`-v '#'`) then extracting column 5 (the alternative nucleotide) and sorting and counting the occurrence of each nucleotide (uniq ) with the `-c` option to count. You should see a clear preference for an T and A nucleotide that has been inserted. 
+Again we are selecting against the header (`-v '#'`) then extracting column 5 (the alternative nucleotide) and sorting and counting the occurrence of each nucleotide (uniq ) with the `-c` option to count. You should see a clear preference for an `T` and `A` nucleotide that has been inserted. 
 
 We can also very roughly and quickly see if there are hotspots for SNV along the genome:
 ```
