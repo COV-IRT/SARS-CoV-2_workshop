@@ -173,7 +173,7 @@ Given our mapped read file and our reference fasta file we can execute lofreq li
 ```
 lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
 ```
-Overall this step will run for a couple of minutes so feel free to drink something or stretch! :) 
+Overall this step will run for a couple of minutes so feel free to drink something :coffee: or stretch :walking:! :smile: 
 
 This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`). 
 
