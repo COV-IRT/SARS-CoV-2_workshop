@@ -66,7 +66,7 @@ Next we are ready to start mapping the fastq reads to the genome itself. For thi
  bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq > our_mapped_reads.sam
 ```
 
-This executes bwa mem with 2 threads (`-t` parameter) give our previously indexed `reference.fasta` and the two fastq files representing the Illumina paired end reads. 
+This executes bwa mem with `2` threads (`-t` parameter) give our previously indexed `reference.fasta` and the two fastq files representing the Illumina paired end reads. 
 
 After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file and we can take a look. As highlighted in the lecture we have a header in this file indicated with @ and then entries per read per line. 
 
@@ -178,7 +178,7 @@ less -S our_snv.vcf
 Note to terminate this process press `q` to close less. 
 As we can see the VCF file follows a certain standard as it has first specified meta information as part of the header (#). This is then followed by each line showing a single variant. 
 
-Take your time to look into this file. Some of the important tags that are defined are AF (allele frequency within the sample), DP4 list of supporting reads for reference and alternative split up over +/- strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: DP and compare it to DP4. 
+Take your time to look into this file. Some of the important tags that are defined are AF (allele frequency within the sample), DP4 list of supporting reads for reference and alternative split up over `+/-` strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: DP and compare it to DP4. 
 
 To get a feeling about our file we want to query it a little to summarize our SNV calls.
 First we want to count the total number of SNV in this file:
