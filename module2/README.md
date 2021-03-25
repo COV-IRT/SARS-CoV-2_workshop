@@ -148,7 +148,45 @@ This time the -f 16 filters for reads on the - strand and the -f 0 for reads tha
 
 Now that we have confidence in our mapped read file and we know its the right format and sorte we can continue with the variant calling. Firt we will call variants for SNV and subsequently for SV. 
 
+To keep everything nicely and tightly we will change directory and create one call SNV:
+```
+cd ..
+mkdir SNV
+cd SNV
+```
+
 ### SNV calling: 
+For SNV calling we are goign to use LowFreq, which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/ 
+
+Given our mapped read file and our reference fasta file we can execute lofreq like this:
+
+```
+lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
+```
+Overall this step will run for a couple of minutes so feel free to drink something or strech! :) 
+
+This will first start to index our reference.fasta and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimu 10 (--min-mq 10). 
+
+### SV calling: 
+In the end we want to also identify Structural Vartions (SV). Here we are simply using Manta, wich was mainly designed to identify SV across a human genome. 
+
+Manta requires two steps:
+
+1. Initiate the run:
+```
+configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=reference.fasta --runDir=Out_Manta
+```
+This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in Out_Manta
+
+2. Run the analysis:
+```
+python Out_Manta/runWorkflow.py -j 2 -m local -g 10
+```
+
+This will launch the Manta pipeline that we previous configred. -j specfies the number of CPU threads, -m local indicates that it should not try to run things on different nodes or instances and -g 30 specifies the available memory for the process in GB. 
+
+Manta now searches for abnormal paired-end reads and split reads across our mapped reads. These will be analyzed together and clustered to identify SV in this samples. 
+
 
 
 Now lets take some time to explore the mapped read file. 
