@@ -24,17 +24,17 @@ The goal of this module is to get you familiarized with the mapping of Illumina 
 
 
 ## Learning Objectives
-In the end of Module 2 you should have a clear understanding how to map Illumina reads and identify SNV and SV together. In addition, you should be able to identify problems and obtain preliminary insights into your data set at hand.
+In the end of Module 2 you should have a clear understanding how to map Illumina reads and identify SNVs and SVs together. Furthermore, you should be able to identify problems and obtain preliminary insights into your data set at hand.
 
 We will further discuss standard file formats for this application: [BAM](http://samtools.github.io/hts-specs/SAMv1.pdf) and [VCF](http://samtools.github.io/hts-specs/VCFv4.1.pdf) files.
 
 ***
 
-## Alignment and quality control (QC) of aligning short read data
+## Alignment and quality control (QC) of aligning short-read data
 
 ### Mapping reads
 
-As discussed in the lecture the purpose of a mapping / alignment is to identify the most likely region a given read (i.e. sequenced segment) was originating from a given genome.
+As discussed in the lecture the purpose of a mapping / alignment is to identify the most likely region a given read (i.e. sequenced segment) was originating from a given genome location.
 
 First we will align the reads to the reference genome.
 
@@ -42,22 +42,23 @@ Navigate to the folder and create a folder for your mapping results
 
 ```
 cd Module2
-mkdir mapping
+mkdir -p mapping
 cd mapping
 ```
 
-Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. `BWA mem` is currently one of the standard short read based mapper and that is why we are using it here. To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
+Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. `BWA mem` is currently one of the standard short-read based mapper and that is why we are using it here. To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
 
 ```
 bwa
 ```
+
 #### 1. Index reference genome:
 We first need to index the reference genome itself by using `bwa index`.
 
 ```
 bwa index reference.fasta
 ```
-This should only take a few seconds since the SARS-Cov-2 genome is very small.
+This should only take a few seconds since the SARS-Cov-2 genome is tiny.
 
 #### 2. Map reads to genome:
 Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads.
@@ -79,6 +80,13 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 ```
 
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version.
+
+*bonus*
+You can get bam firect ouput from `bwa mem` as follow:
+```
+bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.bam -
+```
+Where  `-@2` means use two threads, and `-` means take input from stdout  
 
 #### 4. Sorting a BAM file
 
