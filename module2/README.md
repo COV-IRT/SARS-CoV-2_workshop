@@ -51,16 +51,16 @@ Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem
 ```
 bwa
 ```
-
-1. We first need to index the reference genome itself by using `bwa index`:
+##### 1. Index reference genome
+We first need to index the reference genome itself by using `bwa index`:
 
 ```
 bwa index reference.fasta 
 ```
 This should only take a few seconds since the SARS-Cov-2 genome is very small.
 
-
-2. Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads:
+##### 2. Map reads to genome
+Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads:
 
 ```
  bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq > our_mapped_reads.sam
