@@ -20,7 +20,7 @@ The goal of this module is to get you familiarized with the mapping of Illumina 
 5. Identify Structural Variations (SVs) ([Manta](https://github.com/Illumina/manta))
 
 
-_Note_: The tools and methods we introduce here are clear snapshots of best practices for this analysis and there are multiple other methods available for your own analysis.
+*Note*: The tools and methods we introduce here are clear snapshots of best practices for this analysis and there are multiple other methods available for your own analysis.
 
 
 ## Learning Objectives
