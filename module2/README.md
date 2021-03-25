@@ -46,7 +46,7 @@ mkdir mapping
 cd mapping
 ```
 
-Next we want to use the reads to start the BWA mem alignments. BWA mem is currently one of the standard short read based mapper and that is why we are using it here.  To see the available options of bwa just execute its command:
+Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. BWA mem is currently one of the standard short read based mapper and that is why we are using it here.  To see the available options of bwa just execute its command:
 
 ```
 bwa
