@@ -166,7 +166,7 @@ cd SNV
 ```
 
 ### SNV calling
-For SNV calling we are going to use LowFreq, which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/ 
+For SNV calling we are going to use [LoFreq](https://github.com/andreas-wilm/lofreq3), which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/ 
 
 Given our mapped read file and our reference fasta file we can execute lofreq like this:
 
@@ -209,7 +209,7 @@ Here we extract similar to before the 2nd column (SNV position) and bin it by 10
 A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/) and [vcftools](https://vcftools.github.io/man_latest.html) to further filter and manipulate these files. 
 
 ### SV calling
-In the end we want to also identify Structural Variations (SV). Here we are simply using Manta, which was mainly designed to identify SV across a human genome. 
+In the end we want to also identify Structural Variations (SV). Here we are simply using [Manta](https://github.com/Illumina/manta), which was mainly designed to identify SV across a human genome. 
 
 Manta requires two steps:
 
