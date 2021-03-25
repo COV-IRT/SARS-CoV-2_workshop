@@ -259,13 +259,17 @@ The first step to starting read mapping --> context to DNAnexus
 # Prepare for running the analysis
 
 download all data using  
-`dx download -r *`  
+`dx download -r Module2`  
 
 What data/ directories you can see now?  
 `ls -l`  
 
 Move to Module2  
 `cd Module2`  
+
+What files/directories you can find?
+
+`ls -l`
 
 Make sure you add other conda branches:
 ```
