@@ -29,7 +29,7 @@ We will further discuss standard file formats for this application: BAM and VCF 
 
 ## Alignment and quality control of aligning short read data
 
-## Mapping reads 
+### Mapping reads 
 
 As discussed in the lecture the purpose of a mapping / alignment is to identify the most likely region a given read (ie. sequenced segment) was orginating from a given genome. 
 
@@ -88,12 +88,56 @@ ll -h our_mapped_reads.*
 
 This should show you that the sam file (our_mapped_reads.sam) is the largest file with a few hundred MB and the compressed and sorted bam file (our_mapped_reads.sort.bam) is actually the smalles file. 
 
-Thus, the previous files are not necassary to keep and we are going to remove them:
+Since these files contain all the same inforation we dont need to keep the larger files anymore. To remove them from your disk we run:
 
 ```
 rm our_mapped_reads.bam 
 rm our_mapped_reads.sam 
 ```
+
+The last step that is necassary for a subsequent analysis is to index the sorted and compressed read file:
+```
+samtools index our_mapped_reads.sort.bam
+```
+
+Thus in the end you should have 2 files: our_mapped_reads.sort.bam and our_mapped_reads.sort.bam.bai . The latter is the index file. 
+
+### Mapping QC: 
+
+Before we move on to the variant analysis we want to inspect the mapped read file a little to see if all steps worked as expected. 
+
+First we want to count the mapped and unmapped reads. This can be simply done using samtools view. For this we need to query /filter the reads based on their sam tag. You can here refresh what each tag stands for: https://broadinstitute.github.io/picard/explain-flags.html 
+
+To compute the number of mapped reads we run:
+
+```
+ samtools view -c -F 4 our_mapped_reads.sort.bam
+ ```
+ The parameter -c tells samtools view to olny count and report that number to you. The parameter -F 4 tells it to only use reads that are in disagreement with the flag:4 . You can see based on the above URL that this flag represents unmapped reads. Thus we are querying not unmapped reads , which is the count of mapped reads. 
+ 
+Often we want to restrict this given a certain mapping quality threshold. This can be done like this:
+
+```
+ samtools view -q 20 -c -F 4 our_mapped_reads.sort.bam
+```
+Here the addition of -q 20 restricts the reads to have mapping quality of 20 or more that is typically indicative of highly trustful mappings. 
+Next we want to compute the number of unmapped reads:
+
+```
+ samtools view -c -f 4 our_mapped_reads.sort.bam
+ ```
+ Note we only need to change the -F to a -f to query for the Tag: 4. In our pre run this resulted in a mapping rate of 70.56%.
+ 
+ Using samtools view we can also do other manipulations/ query. For example we can query the reads that are split reads, but only the supplement splits. These reads are goign to be useful later for the detection of SV. 
+ 
+ ```
+samtools view -c -f 2048  our_mapped_reads.sort.bam 
+ ```
+ Again feel free to check out what the tag 2048 means over at  https://broadinstitute.github.io/picard/explain-flags.html 
+ 
+ 
+ 
+
 
 Now lets take some time to explore the mapped read file. 
 The first step to starting read mapping --> context to DNAnexus
