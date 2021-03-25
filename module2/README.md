@@ -222,6 +222,12 @@ Our SV calling results can be found here:
 ```
 ls Out_Manta/results/variants
 ```
+As you can see we have multiple VCF files. These represent the different stages of Manta and the confidence level for the SV calls. We typically use the diploidSV.vcf.gz file. 
+
+
+
+
+#PREVIOUSLY:
 
 
 Now lets take some time to explore the mapped read file. 
