@@ -81,8 +81,8 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version.
 
-*bonus*
-You can get bam firect ouput from `bwa mem` as follow:
+*bonus*  
+You can get bam direct output from `bwa mem` as follow:
 ```
 bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.bam -
 ```
