@@ -14,10 +14,10 @@ Baylor College of Medicine
 The goal of this module is to get you familiarized with the mapping of Illumina reads to the SARS-CoV-2 genome and to identify variations. For the latter we will focus on SNV (point mutations) and Structural Variations (SV). In addition to identifying these two types of variations we will further show you one way to assess the quality and summary statistics across the mapping, SNV and SV calling. 
 
 ### The main steps in this Module are:
-1. Align the reads from Module 1 (BWA-mem)
-2. Obtain alignment statistics (samtools)
-3. Identifying single-nucleotide variations (LoFreq)
-5. Identify Structural Variations (Manta)
+1. Align the reads from Module 1 ([BWA-mem](https://github.com/lh3/bwa))
+2. Obtain alignment statistics ([samtools](https://github.com/samtools/samtools))
+3. Identifying single-nucleotide variations ([LoFreq](https://github.com/andreas-wilm/lofreq3))
+5. Identify Structural Variations ([Manta](https://github.com/Illumina/manta))
 
 
 The tools and methods we introduce here are clear snapshots of best practices for this analysis and there are multiple other methods available for your own analysis.
