@@ -51,16 +51,16 @@ Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem
 ```
 bwa
 ```
-##### 1. Index reference genome
-We first need to index the reference genome itself by using `bwa index`:
+#### 1. Index reference genome:
+We first need to index the reference genome itself by using `bwa index`.
 
 ```
 bwa index reference.fasta 
 ```
 This should only take a few seconds since the SARS-Cov-2 genome is very small.
 
-##### 2. Map reads to genome
-Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads:
+#### 2. Map reads to genome:
+Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads.
 
 ```
  bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq > our_mapped_reads.sam
@@ -115,7 +115,7 @@ Thus in the end you should have 2 files: `our_mapped_reads.sort.bam` and `our_ma
 
 Before we move on to the variant analysis we want to inspect the mapped read file a little to see if all steps worked as expected. 
 
-First we want to count the mapped and unmapped reads. This can be simply done using samtools view. For this we need to query / filter the reads based on their sam tag. You can here refresh what each tag stands for: https://broadinstitute.github.io/picard/explain-flags.html 
+First we want to count the mapped and unmapped reads. This can be simply done using `samtools view`. For this we need to query / filter the reads based on their sam tag. You can here refresh what each tag stands for: https://broadinstitute.github.io/picard/explain-flags.html 
 
 To compute the number of mapped reads we run:
 
@@ -173,7 +173,7 @@ Given our mapped read file and our reference fasta file we can execute lofreq li
 ```
 lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
 ```
-Overall this step will run for a couple of minutes so feel free to drink something :tea::coffee:  or stretch:walking::running:! :smile: 
+Overall this step will run for a couple of minutes so feel free to drink something:tea::coffee:  or stretch:walking::running:! :smile: 
 
 This will first start to index our `reference.fasta` and subsequently use our mapped reads to call SNV. Note we have specified a mapping quality of minimum 10 (`--min-mq 10`). 
 
@@ -185,7 +185,7 @@ less -S our_snv.vcf
 Note to terminate this process press `q` to close less. 
 As we can see the VCF file follows a certain standard as it has first specified meta information as part of the header (#). This is then followed by each line showing a single variant. 
 
-Take your time to look into this file. Some of the important tags that are defined are AF (allele frequency within the sample), DP4 list of supporting reads for reference and alternative split up over `+/-` strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: DP and compare it to DP4. 
+Take your time to look into this file. Some of the important tags that are defined are `AF` (allele frequency within the sample), `DP4` list of supporting reads for reference and alternative split up over `+/-` strand. What is important to note is that each of these tags have to be defined in the header. Go and look up: `DP` and compare it to `DP4`. 
 
 To get a feeling about our file we want to query it a little to summarize our SNV calls.
 First we want to count the total number of SNV in this file:
@@ -208,18 +208,18 @@ Here we extract similar to before the 2nd column (SNV position) and bin it by 10
 
 A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/) and [vcftools](https://vcftools.github.io/man_latest.html) to further filter and manipulate these files. 
 
-### SV calling: 
+### SV calling
 In the end we want to also identify Structural Variations (SV). Here we are simply using Manta, which was mainly designed to identify SV across a human genome. 
 
 Manta requires two steps:
 
-##### 1. Initiate the run:
+#### 1. Initiate the run:
 ```
 configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
-##### 2. Run the analysis:
+#### 2. Run the analysis:
 ```
 python Out_Manta/runWorkflow.py -j 2 -m local -g 10
 ```
