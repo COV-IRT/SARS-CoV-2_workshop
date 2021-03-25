@@ -26,11 +26,11 @@ The tools and methods we introduce here are clear snapshots of best practices fo
 ## Learning Objectives
 In the end of Module 2 you should have a clear understanding how to map Illumina reads and identify SNV and SV together. In addition, you should be able to identify problems and obtain preliminary insights into your data set at hand. 
 
-We will further discuss standard file formats for this application: BAM and VCF files.
+We will further discuss standard file formats for this application: [BAM](http://samtools.github.io/hts-specs/SAMv1.pdf) and [VCF](http://samtools.github.io/hts-specs/VCFv4.1.pdf) files.
 
 ***
 
-## Alignment and quality control of aligning short read data
+## Alignment and quality control (QC) of aligning short read data
 
 ### Mapping reads 
 
@@ -46,13 +46,13 @@ mkdir mapping
 cd mapping
 ```
 
-Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. BWA mem is currently one of the standard short read based mapper and that is why we are using it here.  To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
+Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem alignments. `BWA mem` is currently one of the standard short read based mapper and that is why we are using it here.  To see the available options of `bwa` just execute its command (or see [manual](http://bio-bwa.sourceforge.net/bwa.shtml)):
 
 ```
 bwa
 ```
 
-We first need to index the reference genome itself by using `bwa index`:
+1. We first need to index the reference genome itself by using `bwa index`:
 
 ```
 bwa index reference.fasta 
@@ -60,7 +60,7 @@ bwa index reference.fasta
 This should only take a few seconds since the SARS-Cov-2 genome is very small.
 
 
-Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads:
+2. Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads:
 
 ```
  bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq > our_mapped_reads.sam
@@ -111,7 +111,7 @@ samtools index our_mapped_reads.sort.bam
 
 Thus in the end you should have 2 files: `our_mapped_reads.sort.bam` and `our_mapped_reads.sort.bam.bai` . The latter is the index file. 
 
-### Mapping QC: 
+### Mapping QC
 
 Before we move on to the variant analysis we want to inspect the mapped read file a little to see if all steps worked as expected. 
 
@@ -154,7 +154,7 @@ This time the `-f 16` filters for reads on the `-` strand and the `-f 0` for rea
 
 ***
 
-## Variant calling: 
+## Variant calling
 
 Now that we have confidence in our mapped read file and we know its the right format and sorte we can continue with the variant calling. First we will call variants for SNV and subsequently for SV. 
 
@@ -165,7 +165,7 @@ mkdir SNV
 cd SNV
 ```
 
-### SNV calling: 
+### SNV calling
 For SNV calling we are going to use LowFreq, which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/ 
 
 Given our mapped read file and our reference fasta file we can execute lofreq like this:
