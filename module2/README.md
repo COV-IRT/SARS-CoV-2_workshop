@@ -79,6 +79,9 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 ```
 
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version. 
+
+#### Sorting a BAM file
+
 Next we need to sort the file according to read mapping locations. For this we again are using `samtools` but this time the `sort` option. 
 
 ```
@@ -99,6 +102,7 @@ Since these files contain all the same information we don't need to keep the lar
 rm our_mapped_reads.bam 
 rm our_mapped_reads.sam 
 ```
+#### Creating a BAM index file
 
 The last step that is necessary for a subsequent analysis is to index the sorted and compressed read file:
 ```
