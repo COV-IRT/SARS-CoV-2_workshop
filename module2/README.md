@@ -260,7 +260,7 @@ The first step to starting read mapping --> context to DNAnexus
 Here we are assumin that you already did 
 `dx ssh_config` from first module
 ### Steps
-1- `dx select` choes the current project using `0`. 
+1- `dx select` choes the current project using `0` 
 2- `dx run app-cloud_workstation --ssh`. 
 3- Select `0` and give it `1d`. 
 4- Select `2` copy and paste this directory to prompt `source/module2_tools`. 
