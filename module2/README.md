@@ -256,6 +256,8 @@ The first step to starting read mapping --> context to DNAnexus
 
 *Connect to your DNAnexus instance and open up a shell prompt.*
 
+***
+
 # Prepare for running the analysis
 Here we are assumin that you already did
 `dx ssh_config` from first module
@@ -275,14 +277,14 @@ dx download -r source
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
 ```
-7- Run the follwing `conda activate SVanalysis`
-8- Test
+8- Run the follwing `conda activate SVanalysis`  
+9- Test  
 ```
 bwa
 samtools
 ```
 do they exist?
-9- Use the folllwing commands to use `manta`
+10- Use the folllwing commands to use `manta`  
 ```
 MANTA=miniconda3/envs/SVanalysis/share/manta-1.6.0-1/bin/
 python $MANTA/configManta.py
