@@ -265,7 +265,7 @@ Here we are assumin that you already did
 1- `dx select` choes the current project using `0`   
 2- `dx run app-cloud_workstation --ssh`   
 3- Select `0` and give it `1d`  
-4- Select `2` copy and paste this directory to prompt `source/module2_tools`  
+4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
 5- Copy and run `. .bashrc`  
 6- download the module if you did not already  
 ```
