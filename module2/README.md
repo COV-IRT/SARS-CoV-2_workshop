@@ -257,51 +257,35 @@ The first step to starting read mapping --> context to DNAnexus
 *Connect to your DNAnexus instance and open up a shell prompt.*
 
 # Prepare for running the analysis
-
-download all data using  
-`dx download -r Module2`  
-
-What data/ directories you can see now?  
-`ls -l`  
-
-Move to Module2  
-`cd Module2`  
-
-What files/directories you can find?
-
-`ls -l`
-
-Make sure you add other conda branches:
+Here we are assumin that you already did 
+`dx ssh_config` from first module
+### Steps
+1- `dx select` choes the current project using `0`
+2- `dx run app-cloud_workstation --ssh`
+3- Select `0` and give it `1d`
+4- Select `2` copy and paste this directory to prompt `source/module2_tools`
+5- Copy and run `. .bashrc`
+6- download the module if you did not already
 ```
-conda config --add channels conda-forge
-conda config --add channels bioconda
+dx download -r Module2
+dx download -r source
 ```
-
-Create environment:  
-`conda create -n SVanalysis python=2.7 bwa=0.7.17 manta=1.6.0 lofreq=2.1.5`
-
-Activate the environment:  
-`conda activate SVanalysis`
-
-
-Export Manta  
-`MANTA=/opt/conda/envs/SVanalysis/share/manta-1.6.0-0/bin/"`
-
-Try it now:  
-`python $MANTA/configManta.py`
-
-
-## Time to run analysis
-# **First Align Reads**
+7- Use these commands to set environment
 ```
-bwa mem
+unset DX_WORKSPACE_ID
+dx cd $DX_PROJECT_CONTEXT_ID:
 ```
-
-<!-- Access the data: FIXME
+7- Run the follwing `conda activate SVanalysis`
+8- Test
 ```
-cd awesome_data
-
+bwa
+samtools
 ```
-This dataset contains paired end reads. -->
+do they exist?
+9- Use the folllwing commands to use `manta`
+```
+MANTA=miniconda3/envs/SVanalysis/share/manta-1.6.0-1/bin/
+python $MANTA/configManta.py
+```
+__Done!__
 
-<!-- Next: [module3!](module3.rst) -->
