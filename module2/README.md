@@ -262,7 +262,7 @@ Manta requires two steps:
 
 ### 1. Initiate the run:
 ```
-configManta.py --bam=~/Module2/mapping/our_mapped_reads.sort.bam --referenceFasta=~/Module2/raw_data/reference.fasta --runDir=Out_Manta
+configManta.py --bam=../mapping/our_mapped_reads.sort.bam --referenceFasta=../raw_data/reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
