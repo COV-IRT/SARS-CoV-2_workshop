@@ -44,12 +44,12 @@ If you want to call both indels and SNPs then you will first have to assign inde
 
 1. (Optional) Since our dataset consists of paired-end Illumina reads we can use the built-in implementation of Dindel ([PMID 20980555](https://pubmed.ncbi.nlm.nih.gov/20980555/)) inside the LoFreq to assign the indel qualities as follows.
 ```
-lofreq indelqual --dindel -f SARS-CoV-2-reference.fasta -o your_bam_file.sorted.indelqual.bam your_bam_file.sorted.bam
+lofreq indelqual --dindel -f Data/SARS-CoV-2-reference.fasta -o Output/SRR12447392.bwamem.sorted.indelqual.bam Data/SRR12447392.bwamem.sorted.bam
 ```
 
 2. Now, we can call the variants using the following LoFreq command.
 ```
-lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.indel.vcf Data/SRR12447392.bwamem.sorted.indelqual.bam
+lofreq call -f Data/SARS-CoV-2-reference.fasta --call-indels -o Output/SRR12447392.lofreq.indel.vcf Data/SRR12447392.bwamem.sorted.indelqual.bam
 ```
 
 An example of BAM file with indel qualities for the SRR12447392 sample of SARS-CoV-2 visualized using IGV browser.
@@ -57,7 +57,7 @@ An example of BAM file with indel qualities for the SRR12447392 sample of SARS-C
 
 **CHECKPOINT:** We have provided a BAM file with indel scores added to it in the snapshot, the file is located at `Data/SRR12447392.bwamem.sorted.indelqual.bam`. You should be able to run the second command and then compare your output VCF with the provided reference run at `Output-reference/SRR12447392.lofreq.indel.vcf`. The quickest way to verify that your run was succesful is to call
 ```
-diff myOutput.vcf Output-reference/SRR12447392.lofreq.indel.vcf
+diff Output/SRR12447392.lofreq.indel.vcf Output-reference/SRR12447392.lofreq.indel.vcf
 ```
 you should see that nothing is reported since the two outputs will be identical.
 
