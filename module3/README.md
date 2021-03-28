@@ -20,6 +20,8 @@ Rice University
 
 ## Background On reference-guided assembly and low frequency variant calling
 
+The slides covering the background information are available at [this link](https://rice-my.sharepoint.com/:p:/g/personal/ns58_rice_edu/EVzwEJTAUPFCj_taLBcIYYABV05DlROOYu1IoixxudDi2g?e=OzcNci).
+
 ## Low frequency variant calling
 
 ### Workspace configuration
