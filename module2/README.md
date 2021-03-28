@@ -100,7 +100,7 @@ This should only take a few seconds since the SARS-Cov-2 genome is tiny.
 Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads.
 
 ```
- bwa mem -t 2 ~/Module2/raw_data/reference.fasta  ~/Module2/raw_data/humanRemoved_SRR12447392_1.fastq.gz  ~/Module2/raw_data/humanRemoved_SRR12447392_2.fastq.gz > our_mapped_reads.sam
+ bwa mem -t 2 ~/Module2/raw_data/reference.fasta  ~/Module2/raw_data/SRR12447392_1.fastq.gz  ~/Module2/raw_data/SRR12447392_2.fastq.gz > our_mapped_reads.sam
 ```
 
 This executes bwa mem with `2` threads (`-t` parameter) give our previously indexed `reference.fasta` and the two fastq files representing the Illumina paired end reads.
