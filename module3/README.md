@@ -7,12 +7,12 @@ Rice University
 ***
 
 ## Goals of this module
-* This hands on tutorial will teach you how to FIXME
+* This hands on tutorial will teach you how to call single nucletide variants (SNVs) and indels from the aligned viral sequencing reads (SAM/BAM files), and how to subsequently create a reference-guided assembly of the SARS-CoV-2 genome.
 
 ## Learning Objectives
-* Objective 1
-* Objective 2
-* Objective 3
+* Be able to pre-process BAM files to prepare them for variant calling
+* Use variant calling software LoFreq to call SNVs and indels
+* Assemble a SARS-CoV-2 genome using a reference genome and variant calling output file (VCF)
 
 ***
 
@@ -71,6 +71,9 @@ lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.in
 
 **Note:** The first step is optional if you don't plan to call indels. To just call SNPs you would omit the `--call-indels` flag to `lofreq call`, and you can skip the first stpe in that case.
 
+An example of BAM file with indel qualities for the SRR12447392 sample of SARS-CoV-2 visualized using IGV browser.
+![](Figures/IGV-SRR12447392-indel-quals.png)
+
 ## Reference-guided assembly
 
 The first step to starting your assembly --> context to DNAnexus
@@ -110,5 +113,8 @@ bgzip your_output.filtered.af50.vcf
 bcftools index your_output.filtered.af50.vcf.gz
 cat SARS-CoV-2-reference.fasta | bcftools consensus your_output.filtered.af50.vcf.gz > your_output.consensus.fasta
 ```
+
+An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
+![](Figures/IGV-Zoom-in.png)
 
 Next: [module4!](module4.rst)
