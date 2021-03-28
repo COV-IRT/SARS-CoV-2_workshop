@@ -30,6 +30,43 @@ We will further discuss standard file formats for this application: [BAM](http:/
 
 ***
 
+
+# Prepare for running the analysis
+Here we are assumin that you already did
+`dx ssh_config` from first module
+### Steps
+1- `dx select` choes the current project using `0`   
+2- `dx run app-cloud_workstation --ssh`   
+3- Select `0` and give it `1d`  
+4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
+5- Copy and run `. .bashrc`  
+6- Use these commands to set environment.
+```
+unset DX_WORKSPACE_ID
+dx cd $DX_PROJECT_CONTEXT_ID:
+```
+7- download the module if you did not already  
+```
+dx download -r Module2
+dx download -r source
+```
+8- Run the follwing `conda activate SVanalysis`  
+9- Test  
+```
+bwa
+samtools
+```
+do they exist?
+10- Use the folllwing commands to use `manta`  
+```
+MANTA=miniconda3/envs/SVanalysis/share/manta-1.6.0-1/bin/
+python $MANTA/configManta.py
+```
+
+
+***
+
+
 ## Alignment and quality control (QC) of aligning short-read data
 
 ### Mapping reads
@@ -104,13 +141,6 @@ Since these files contain all the same information we don't need to keep the lar
 rm our_mapped_reads.bam
 rm our_mapped_reads.sam
 ```
-
-*bonus*    
-You can get sorted bam direct output from `bwa mem` as follow:
-```
-bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq | samtools sort -@2 -o our_mapped_reads.sort.bam -
-```
-Where  `-@2` means use two threads, and `-` means take input from stdout  
 
 
 #### 5. Creating a BAM index file
@@ -248,45 +278,5 @@ As you can see we have multiple VCF files. These represent the different stages 
 
 
 
-#PREVIOUSLY:
 
 
-Now let's take some time to explore the mapped read file.
-The first step to starting read mapping --> context to DNAnexus
-
-*Connect to your DNAnexus instance and open up a shell prompt.*
-
-***
-
-# Prepare for running the analysis
-Here we are assumin that you already did
-`dx ssh_config` from first module
-### Steps
-1- `dx select` choes the current project using `0`   
-2- `dx run app-cloud_workstation --ssh`   
-3- Select `0` and give it `1d`  
-4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Copy and run `. .bashrc`  
-6- Use these commands to set environment.
-```
-unset DX_WORKSPACE_ID
-dx cd $DX_PROJECT_CONTEXT_ID:
-```
-7- download the module if you did not already  
-```
-dx download -r Module2
-dx download -r source
-```
-8- Run the follwing `conda activate SVanalysis`  
-9- Test  
-```
-bwa
-samtools
-```
-do they exist?
-10- Use the folllwing commands to use `manta`  
-```
-MANTA=miniconda3/envs/SVanalysis/share/manta-1.6.0-1/bin/
-python $MANTA/configManta.py
-```
-__Done!__
