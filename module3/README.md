@@ -12,6 +12,8 @@ Rice University
 ## Learning Objectives
 * Be able to pre-process BAM files to prepare them for variant calling
 * Use variant calling software LoFreq to call SNVs and indels
+* Use variant calling software iVar to call SNVs and indels
+* Be able to compare and merge the calls produced by the two tools
 * Assemble a SARS-CoV-2 genome using a reference genome and variant calling output file (VCF)
 
 ***
