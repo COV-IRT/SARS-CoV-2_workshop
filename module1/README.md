@@ -27,7 +27,9 @@ It is always a good idea to perform some data exploration on your raw sequence r
 
 ## Downloading the example sample
 
-We will be working with an example main read dataset throughout the workshop. It can be found under NCBI ID [SRR12447392](https://www.ncbi.nlm.nih.gov/sra/SRX8941978%5Baccn%5D). 
+We will be working with an example main read dataset throughout the workshop. It can be found under NCBI ID [SRR12447392](https://www.ncbi.nlm.nih.gov/sra/SRX8941978%5Baccn%5D).  
+<br>  
+
 ![](img/SRR12447392-ncbi.png)  
 
 The data has been pre-downloaded for you and can be found in `raw_data`. We used the `sra-tools` to download the sample from the command-line. If you would like more information about how to use this set of tools got to the [sra-tools](https://github.com/ncbi/sra-tools/wiki) wiki.  
@@ -78,6 +80,8 @@ ls -l fastqc_report/
 <br>  
 
 When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. Open on on one of the html files and you should see a report like the one shown below.  
+<br>  
+
 ![](img/SRR12447392-fastqcReport.png)  
 
 ### BBduk - quality and adapter trimming  
@@ -135,7 +139,7 @@ cat logs/SRR12447392.bbduk.log | grep "Result:"
 ```
 
 > Compare your sequence read count to the counts in the previous log files. Were there many human reads in the sample? 
-What number do you get if you count the lines in logs/SRR12447392.hostMapped.sam? Does it macth what you calculated in the step above?  
+What number do you get if you count the lines in logs/SRR12447392.hostMapped.sam? Does it match what you calculated in the step above?  
 <br>  
 
 ### iVar - removing ARTIC primers
