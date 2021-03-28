@@ -144,10 +144,16 @@ lofreq filter -a 0.5 -i your_input.vcf -o your_output.filtered.af50.vcf
 ```
 
 ### Construction of consensus sequence
-Now we can generate the consensus sequence using bcftools, currently bcftools only supports compressed gz file format, so we have to first compress the vcf file, and then index it.
+Now we can generate the consensus sequence using bcftools, currently bcftools only supports compressed gz file format, so we have to first compress the vcf file.
 ```
 bgzip your_output.filtered.af50.vcf
+```
+Once the vcf is compressed, use bcftools to index it.
+```
 bcftools index your_output.filtered.af50.vcf.gz
+```
+After the vcf is indexed, call consensus based on the reference fasta.
+```
 bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.consensus.fasta your_output.filtered.af50.vcf.gz
 ```
 
