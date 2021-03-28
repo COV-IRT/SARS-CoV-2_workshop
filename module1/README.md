@@ -37,7 +37,6 @@ The data has been pre-downloaded for you and can be found in `raw_data`. We used
 prefetch -v SRR12447392
 fastq-dump --outdir raw_data/ --split-files raw_data/SRR12447392.sra 
 ```
-
 > Why don't you try to downloading this SRR or a different one (e.g. SRR14023759) using the commands above?  
 <br>  
 
@@ -58,7 +57,6 @@ We have our read dataset, let's do an initial exploration of the fastq files.
 # Inspect one of the sequence files
 cat raw_data/SRR12447392_1.fastq | head -16
 ```
-
 > What do you see in the output of the command? Is it different from what you expected and if so how?  
 <br>  
 
@@ -76,12 +74,11 @@ fastqc raw_data/SRR12447392_1.fastq raw_data/SRR12447392_2.fastq -o fastqc_repor
 ls -l fastqc_report/
 ```
 
-When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. Open on on one of the html files and you should see a report like the one shown below.  
-![](img/SRR12447392-fastqcReport.png)  
-<br>  
-
 > Explore the statistics reported in the fastqc outputs. What do you think?     
 <br>  
+
+When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. Open on on one of the html files and you should see a report like the one shown below.  
+![](img/SRR12447392-fastqcReport.png)  
 
 ### BBduk - quality and adapter trimming  
 
