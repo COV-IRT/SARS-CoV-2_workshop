@@ -57,16 +57,9 @@ dx download -r Module2
 dx download -r source
 ```
 8- Run the follwing `conda activate SVanalysis`  
-9- Test  
+9- Test if you can run samtools:
 ```
-bwa
 samtools
-```
-do they exist?
-10- Use the folllwing commands to use `manta`  
-```
-MANTA=miniconda3/envs/SVanalysis/share/manta-1.6.0-1/bin/
-python $MANTA/configManta.py
 ```
 
 
