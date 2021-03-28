@@ -22,9 +22,49 @@ This hands on tutorial will teach you how to explore Illumina raw sequence data 
 
 It is always a good idea to perform some data exploration on your raw sequence reads to assess their quality and the presence of non-biological sequences in your reads (e.g. adapters, primers). Depending on your sequencing method you might also need to remove any non-target reads, such as host DNA or spike-ins. A final optional step is to perform an intial screening to get an overview of what is present in your sample. We covered most of the theory of these steps in the lecture, now let's see how they are implemented in practice.    
 
-*Note: The last step is optional and will depend on the data your are processing. For example, if your data is a metagenomic microbiome sample, then community profiling will be part of your workflow. If you are looking at a sample where you are expecting a single or few targeted organisms, e.g. SARS-CoV2, then perhaps you want to do an inital screen to make sure that the majority of the reads in your sample belong to the target organism. Screening steps are often performed using metagenomic classifiers, such as [Kraken2](http://ccb.jhu.edu/software/kraken2/) or [Centrifuge](https://ccb.jhu.edu/software/centrifuge/manual.shtml#what-is-centrifuge), and are database dependant. As such they might require extensive computational resources. We will not have time to test these tools today.*    
-<br>  
+***
+*Connect to your DNAnexus instance and open up a shell prompt.*
 
+# Prepare for running the analysis
+The following steps are assuming that you already did `dx ssh_config` in the intro session.  
+
+### Steps
+1- `dx select --level=VIEW` to choose the current project using `0`   
+2- `dx run --instance-type mem2_ssd1_v2_x32 app-cloud_workstation --ssh`   
+3- Select `0` and give it `1d`  
+4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
+5- Press 'Enter' & 'Y'
+5- Copy and run `source .bashrc`. Successful execution of this command will activate base conda environment and the text _(base)_ is displayed at command prompt.   
+6- Use these commands to set environment.  
+```
+unset DX_WORKSPACE_ID
+dx cd $DX_PROJECT_CONTEXT_ID:
+```
+
+7- Download the module if you did not already  
+```
+dx download -r Module1
+dx download -r source
+```
+
+8- Run the following `conda activate SVanalysis`  
+9- Test. If the prompt returns a path to the tool, you have success.    
+```
+which fastqc
+which bbmap.sh 
+which ivar
+```
+10- Navigate to the Module1 directory: `cd Module1`  
+11- When you run `ls -l`, you should see two directories:
+```
+# The directory containing the raw fastq files and database files
+raw_data
+raw_data/databases
+# Pre-generated files that we will be creating in this tutorial
+module1_outputs
+```
+
+***
 ## Downloading the example sample
 
 We will be working with an example main read dataset throughout the workshop. It can be found under NCBI ID [SRR12447392](https://www.ncbi.nlm.nih.gov/sra/SRX8941978%5Baccn%5D).  
@@ -32,12 +72,13 @@ We will be working with an example main read dataset throughout the workshop. It
 
 ![](img/SRR12447392-ncbi.png)  
 
-The data has been pre-downloaded for you and can be found in `raw_data`. We used the `sra-tools` to download the sample from the command-line. If you would like more information about how to use this set of tools got to the [sra-tools](https://github.com/ncbi/sra-tools/wiki) wiki.  
+The data has been pre-downloaded for you and can be found in `raw_data`. We used the `sra-tools` to download the sample from the command-line. If you would like more information about how to use this set of tools go to the [sra-tools](https://github.com/ncbi/sra-tools/wiki) wiki.  
 <br>  
 
 ```
 prefetch -v SRR12447392
-fastq-dump --outdir raw_data/ --split-files raw_data/SRR12447392.sra 
+# chose where you want to download the files to (note: if you choose raw_data you will overwrite the existing files there)
+fastq-dump --outdir <path-to-output> --split-files /home/dnanexus/ncbi/public/sra/SRR12447392.sra 
 ```
 > Why don't you try to downloading this SRR or a different one (e.g. SRR14023759) using the commands above?  
 <br>  
@@ -47,7 +88,6 @@ fastq-dump --outdir raw_data/ --split-files raw_data/SRR12447392.sra
 First of all make sure we are all in the same location. If you haven't already navigate to `Module1` directory and create `processed_data` and `logs`.    
 
 ```
-cd Module1
 mkdir processed_reads logs
 ls -l
 ```
@@ -57,7 +97,7 @@ We have our read dataset, let's do an initial exploration of the fastq files.
 
 ```
 # Inspect one of the sequence files
-cat raw_data/SRR12447392_1.fastq | head -16
+cat raw_data/SRR12447392_1.fastq | head -8
 ```
 > What do you see in the output of the command? Is it different from what you expected and if so how?  
 <br>  
@@ -79,7 +119,7 @@ ls -l fastqc_report/
 > Explore the statistics reported in the fastqc outputs. What do you think?     
 <br>  
 
-When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. Open on on one of the html files and you should see a report like the one shown below.  
+When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. If you open one of the html files and you should see a report like the one shown below.  
 <br>  
 
 ![](img/SRR12447392-fastqcReport.png)  
@@ -122,8 +162,8 @@ Most data sets that are uploaded to NCBI will likely have the host reads removed
 <br>  
 
 ```
-# host removal step
-bbmap.sh in=processed_reads/trimmed_SRR12447392_1.fastq in2=processed_reads/trimmed_SRR12447392_2.fastq path=raw_data/databases/humanGenomeBBMap nodisk k=15 out=logs/SRR12447392.hostMapped.sam outu=processed_reads/humanRemoved_SRR12447392.fastq minid=.90 bloom=t bloomk=25 usemodulo=t fast=t noheader=t notags=t 2>logs/SRR12447392.host.align.bbmap.log
+# host removal step - this will take the longest to execute (few minutes)
+bbmap.sh -Xmx24g in=processed_reads/trimmed_SRR12447392_1.fastq in2=processed_reads/trimmed_SRR12447392_2.fastq path=raw_data/databases/humanGenomeBBMap nodisk k=15 outm=logs/SRR12447392.hostMapped.sam outu=processed_reads/humanRemoved_SRR12447392.fastq minid=.90 usemodulo=t fast=t noheader=t notags=t 2>logs/SRR12447392.host.align.bbmap.log
 
 # separate the interleaved file into read1 and read2 files
 reformat.sh in=processed_reads/humanRemoved_SRR12447392.fastq out1=processed_reads/humanRemoved_SRR12447392_1.fastq out2=processed_reads/humanRemoved_SRR12447392_2.fastq
@@ -144,7 +184,7 @@ What number do you get if you count the lines in logs/SRR12447392.hostMapped.sam
 
 ### iVar - removing ARTIC primers
 
-The final step in Module1 is removing the amplification primers from our reads. This will be done by using the primer positions given in the [Artic primer BED](https://raw.githubusercontent.com/artic-network/primer-schemes/master/nCoV-2019/V3/nCoV-2019.primer.bed) file to soft clip the primer sequences in a SARS-CoV2 reference aligned and sorted BAM file. We will be using `bwa`, `samtools` and [iVar](https://andersen-lab.github.io/ivar/html/index.html) to do this. For the purpose of this Module, please simply run the following commands. A more detailed explanation about alignment, refrence mapping and the SAM/BAM format will be given in Module2.  
+The final step in Module1 is removing the amplification primers from our reads. This will be done by using the primer positions given in the [Artic primer BED](https://raw.githubusercontent.com/artic-network/primer-schemes/master/nCoV-2019/V3/nCoV-2019.primer.bed) file to soft clip the primer sequences in a SARS-CoV2 reference aligned and sorted BAM file. We will be using `bwa`, `samtools` and [iVar](https://andersen-lab.github.io/ivar/html/index.html) to do this. A more detailed explanation about alignment, refrence mapping and the SAM/BAM format will be given in Module2.  
 <br>  
 
 ```
@@ -158,36 +198,5 @@ ivar trim -b raw_data/databases/nCoV-2019.primer.bed -p processed_reads/SRR12447
 ```
 
 ***
-*Connect to your DNAnexus instance and open up a shell prompt.*
-
-# Prepare for running the analysis
-The following steps are assuming that you already did `dx ssh_config` in the intro session.  
-
-### Steps
-1- `dx select` choose the current project using `0`   
-2- `dx run app-cloud_workstation --ssh`   
-3- Select `0` and give it `1d`  
-4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Copy and run `source .bashrc`. Successful execution of this command will activate base conda environment and the text _(base)_ is displayed at command prompt.   
-6- Use these commands to set environment.  
-```
-unset DX_WORKSPACE_ID
-dx cd $DX_PROJECT_CONTEXT_ID:
-```
-7- Download the module if you did not already  
-```
-dx download -r Module1
-dx download -r source
-```
-
-8- Run the following `conda activate SVanalysis`  
-9- Test  
-```
-which fastqc
-which bbmap.sh 
-which iVar
-```
-
-
 
 Next: [module2!](module2.rst)
