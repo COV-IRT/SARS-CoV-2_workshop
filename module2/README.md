@@ -67,9 +67,9 @@ python $MANTA/configManta.py
 ***
 
 
-## Alignment and quality control (QC) of aligning short-read data
+# Alignment and quality control (QC) of aligning short-read data
 
-### Mapping reads
+## Mapping reads
 
 As discussed in the lecture the purpose of a mapping / alignment is to identify the most likely region a given read (i.e. sequenced segment) was originating from a given genome location.
 
@@ -89,7 +89,7 @@ Next we want to use the reads to start the [BWA](https://github.com/lh3/bwa) mem
 bwa
 ```
 
-#### 1. Index reference genome:
+### 1. Index reference genome:
 We first need to index the reference genome itself by using `bwa index`.
 
 ```
@@ -97,7 +97,7 @@ bwa index reference.fasta
 ```
 This should only take a few seconds since the SARS-Cov-2 genome is tiny.
 
-#### 2. Map reads to genome:
+### 2. Map reads to genome:
 Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads.
 
 ```
@@ -108,7 +108,7 @@ This executes bwa mem with `2` threads (`-t` parameter) give our previously inde
 
 After a few seconds the program ends and we have our first result as : `our_mapped_reads.sam`. This is a standard text file (see SAM file format specification [here](https://samtools.github.io/hts-specs/SAMv1.pdf)) and we can take a look. As highlighted in the lecture we have a header in this file indicated with `@` and then entries per read per line.
 
-#### 3. Converting a SAM file to a BAM file
+### 3. Converting a SAM file to a BAM file
 
 For subsequent analysis we need to compress (SAM -> BAM) the file. For this we are using [samtools](https://github.com/samtools/samtools) with the option: `view`
 
@@ -119,7 +119,7 @@ samtools view -hb our_mapped_reads.sam > our_mapped_reads.bam
 The options `-h` ensures that the header is kept for the output file and the option `-b` tells `samtools` that we want to obtain the compressed (BAM) version.
 
 
-#### 4. Sorting a BAM file
+### 4. Sorting a BAM file
 
 Next we need to sort the file according to read mapping locations. For this we again are using `samtools` but this time the `sort` option.
 
@@ -143,7 +143,7 @@ rm our_mapped_reads.sam
 ```
 
 
-#### 5. Creating a BAM index file
+### 5. Creating a BAM index file
 
 The last step that is necessary for a subsequent analysis is to index the sorted and compressed read file:
 ```
@@ -152,7 +152,7 @@ samtools index our_mapped_reads.sort.bam
 
 Thus in the end you should have 2 files: `our_mapped_reads.sort.bam` and `our_mapped_reads.sort.bam.bai`. The latter is the index file.
 
-### Mapping QC
+## Mapping QC
 
 Before we move on to the variant analysis we want to inspect the mapped read file a little to see if all steps worked as expected.
 
@@ -195,7 +195,7 @@ This time the `-f 16` filters for reads on the `-` strand and the `-f 0` for rea
 
 ***
 
-## Variant calling
+# Variant calling
 
 Now that we have confidence in our mapped reads file and we know that it's the right format and reads are sorted, we can continue with the variant calling. First, we will call variants for SNV and subsequently for SV.  
 
@@ -206,7 +206,7 @@ mkdir SNV
 cd SNV
 ```
 
-### SNV calling
+## SNV calling
 For SNV calling we are going to use [LoFreq](https://github.com/andreas-wilm/lofreq3), which was first published in 2014: https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3526318/
 
 Given our mapped read file and our reference fasta file we can execute Lofreq as follow:
@@ -254,13 +254,13 @@ In the end we want to also identify Structural Variations (SVs). Here we are sim
 
 Manta requires two steps:
 
-#### 1. Initiate the run:
+### 1. Initiate the run:
 ```
 configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
-#### 2. Run the analysis:
+### 2. Run the analysis:
 ```
 python Out_Manta/runWorkflow.py -j 2 -m local -g 10
 ```
