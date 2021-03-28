@@ -89,6 +89,28 @@ The `--min-af` flag will determine minimum allele freqeuncy that should be repor
 diff Output/merged-calls-af-0.02-pass-only.tsv Output-reference/merged-calls-af-0.02-pass-only.tsv
 ```
 
+### Bonus: checking your variants for lineage inference
+
+iVar indicates the amino acid change and the corresponding protein/gene of SARS-CoV-2. We can use this information that is available in our combined output to check if some of the variants are indicative of a lineage of concern by using [outbreak.info](https://outbreak.info/). 
+
+For example in the combined output file `Output-reference/merged-calls-af-0.02-pass-only.tsv` we note the following iSNVs of interest that occur in S gene (cds-YP_009724390.1)
+```
+22176C>A	0.0173611	cds-YP_009724390.1	TCT	S	TAT	Y
+23273G>T	0.0241642	cds-YP_009724390.1	GAC	D	TAC	Y
+23318G>T	0.017037	cds-YP_009724390.1	GAC	D	TAC	Y
+23403A>G	0.996657	cds-YP_009724390.1	GAT	D	GGT	G => S:D614G variant
+23879G>T	0.0176132	cds-YP_009724390.1	GAA	E	TAA	* 
+24176C>A	0.0108717	cds-YP_009724390.1	CAA	Q	AAA	K
+24365C>A	0.0144222	cds-YP_009724390.1	CAA	Q	AAA	K
+24515G>T	0.0147268	cds-YP_009724390.1	GAC	D	TAC	Y
+```
+
+Once we know the location and the amino acid change we access outbreak.info website and input the mutations to create a report.
+![](Figures/outbreak-info-1.png)
+
+Since S:D714G is a common mutation for multiple lineages we will not get a specific result with just one mutation.
+![](Figures/outbreak-info-2.png)
+
 ## Reference-guided assembly
 
 The first step to starting your assembly --> context to DNAnexus
