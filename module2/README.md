@@ -78,7 +78,7 @@ Navigate to the folder and create a folder for your mapping results
 
 ```
 cd Module2
-mkdir -p mapping
+mkdir mapping
 cd mapping
 ```
 
@@ -92,7 +92,7 @@ bwa
 We first need to index the reference genome itself by using `bwa index`.
 
 ```
-bwa index reference.fasta
+bwa index ~/Module2/raw_data/reference.fasta
 ```
 This should only take a few seconds since the SARS-Cov-2 genome is tiny.
 
@@ -100,7 +100,7 @@ This should only take a few seconds since the SARS-Cov-2 genome is tiny.
 Next we are ready to start mapping the fastq reads to the genome itself. For this we want to use the `bwa mem` option that is best capable to handle the Illumina paired end reads.
 
 ```
- bwa mem -t 2 reference.fasta SRR12447392_1.fastq SRR12447392_2.fastq > our_mapped_reads.sam
+ bwa mem -t 2 ~/Module2/raw_data/reference.fasta  ~/Module2/raw_data/humanRemoved_SRR12447392_1.fastq.gz  ~/Module2/raw_data/humanRemoved_SRR12447392_2.fastq.gz > our_mapped_reads.sam
 ```
 
 This executes bwa mem with `2` threads (`-t` parameter) give our previously indexed `reference.fasta` and the two fastq files representing the Illumina paired end reads.
@@ -211,7 +211,7 @@ For SNV calling we are going to use [LoFreq](https://github.com/andreas-wilm/lof
 Given our mapped read file and our reference fasta file we can execute Lofreq as follow:
 
 ```
-lofreq call  -f reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
+lofreq call  -f ~/Module2/raw_data/reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
 ```
 Overall this step will run for a couple of minutes so feel free to drink something:tea::coffee:  or stretch:walking::running:! :smile:
 
@@ -255,7 +255,7 @@ Manta requires two steps:
 
 ### 1. Initiate the run:
 ```
-configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=reference.fasta --runDir=Out_Manta
+configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=~/Module2/raw_data/reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
