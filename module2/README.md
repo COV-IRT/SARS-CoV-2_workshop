@@ -200,7 +200,7 @@ Now that we have confidence in our mapped reads file and we know that it's the r
 
 To keep everything nice and tight we will change directory and create one called SNV:
 ```
-cd ..
+cd ~/Module2
 mkdir SNV
 cd SNV
 ```
@@ -211,7 +211,7 @@ For SNV calling we are going to use [LoFreq](https://github.com/andreas-wilm/lof
 Given our mapped read file and our reference fasta file we can execute Lofreq as follow:
 
 ```
-lofreq call  -f ~/Module2/raw_data/reference.fasta -o our_snv.vcf --min-mq 10 our_mapped_reads.sort.bam
+lofreq call  -f ~/Module2/raw_data/reference.fasta -o our_snv.vcf --min-mq 10 ~/Module2/mapping/our_mapped_reads.sort.bam
 ```
 Overall this step will run for a couple of minutes so feel free to drink something:tea::coffee:  or stretch:walking::running:! :smile:
 
@@ -255,7 +255,7 @@ Manta requires two steps:
 
 ### 1. Initiate the run:
 ```
-configManta.py --bam=our_mapped_reads.sort.bam --referenceFasta=~/Module2/raw_data/reference.fasta --runDir=Out_Manta
+configManta.py --bam=~/Module2/mapping/our_mapped_reads.sort.bam --referenceFasta=~/Module2/raw_data/reference.fasta --runDir=Out_Manta
 ```
 This should just take seconds as it initiates the folder structure and specifies for the subsequent process to use our mapped reads and our reference file. In addition, we specify the output to be written in `Out_Manta`
 
