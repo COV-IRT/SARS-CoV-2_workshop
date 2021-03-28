@@ -168,18 +168,19 @@ The following steps are assuming that you already did `dx ssh_config` in the int
 2- `dx run app-cloud_workstation --ssh`   
 3- Select `0` and give it `1d`  
 4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Copy and run `. .bashrc`  
-6- download the module if you did not already  
-```
-dx download -r Module1
-dx download -r source
-```
-7- Use these commands to set environment.  
+5- Copy and run `source .bashrc`. Successful execution of this command will activate base conda environment and the text _(base)_ is displayed at command prompt.   
+6- Use these commands to set environment.  
 ```
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
 ```
-8- Run the follwing `conda activate Module1`  
+7- Download the module if you did not already  
+```
+dx download -r Module1
+dx download -r source
+```
+
+8- Run the follwing `conda activate SVanalysis`  
 9- Test  
 ```
 which fastqc
