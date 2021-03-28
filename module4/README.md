@@ -2,17 +2,33 @@
 #  Module #4: Phylogenetic analysis
 
 ***
-Lead: Nídia Trovão
-Fogarty International Center, NIH
+Lead: Nídia S. Trovão
+
+TA: James R. Otieno
+
+Fogarty International Center, National Institutes of Health
 ***
 
 ## Goals of this module
-* This hands on tutorial will teach you how to FIXME
+* This hands on tutorial will teach you how to investigate the evolutionary history of SARS-CoV-2 genomes, through bioinformatics and phylogenetic analysis, and interpret the results to inform public health interventions.
 
 ## Learning Objectives
-* Objective 1
-* Objective 2
-* Objective 3
+* Building a background dataset by retrieving sequences from public databases
+  * Alignment viewer and editing software
+  * Identify the study sequences’ lineage
+  * Access sequences on public genetic databases
+  * Assembly of the background dataset
+* Bioinformatics towards phylogenetics
+  * Selection of a reference genome
+  * Alignment software
+  * Inspection and manual curation of the alignment
+  * Appropriate subsample of the background dataset for computational efficiency
+* Phylogenetic analysis
+  * Components of a phylogeny
+  * Inference algorithms and software
+  * Interpretation
+  * Phylogenetic signal consideration for advances phylodynamic modeling
+
 
 ***
 
