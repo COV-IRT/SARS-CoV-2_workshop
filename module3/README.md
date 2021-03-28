@@ -20,42 +20,21 @@ Rice University
 
 ## Low frequency variant calling
 
-### Workspace configuration and software installation
+### Workspace configuration
 
-*Connect to your DNAnexus instance and open up a shell prompt.*
+Spin up a DNAnexus cloud instance as follows:
+1. `dx run app-cloud_workstation --ssh`
+2. When prompted select option `2`
+3. Specify path to the snapshot, in this case it's `Module-3/variant-calling.snapshot`
+4. Let the instance boot up
+5. Once inside the instance terminal run `unset DX_WORKSPACE_ID` followed by `dx cd $DX_PROJECT_CONTEXT_ID:`
+6. Then run `source .bashrc`, when executed succesfully you will see `(base)` added in front of the terminal prompt
+7. Now, we can activate the conda environment we will use for this session by running `conda activate variant-calling`
 
-First let's make sure we have `conda-forge` and `bioconda` channels set up in our conda.
-```
-conda config --add channels conda-forge
-conda config --add channels bioconda
-```
+The last step completes the configuration we need for this session, your prompt in the terminal should look similar to the one below.
+![](Figures/prompt.png)
 
-Next, we will need to install two tools: samtools (for sam/bam file processing), and LoFreq (for variant calling).
-```
-conda activate workshop-env
-conda install samtools=0.1.18
-conda install lofreq
-```
-
-**Note:** the specified version of samtools is the one that currently works fine on MacOS Catalina. In case if you have a Linux instance (for example one from DNAnexus) you can ommit the `=0.1.18` portion of the `install samtools` command.
-
-### SAM/BAM processing
-
-If after read mapping you only have a SAM file follow the instructions below. If you have a *sorted* BAM file skip to the *Variant calling* subsection, otherwise if you have an unsorted BAM file proceed to step 2.
-
-1. Let's convert our mapped reads from SAM to BAM format using samtools.
-```
-samtools view -S -b my_reads_file.sam > my_reads_file.bam
-```
-
-2. Now, we need to sort our BAM file as follows.
-```
-samtools sort my_reads_file.bam -o my_reads_file.sorted.bam
-```
-
-Finally, we can proceed to the variant calling.
-
-### Variant calling
+### Variant calling: LoFreq 
 
 If you want to call both indels and SNPs then you will first have to assign indel quality scores in your BAM. LoFreq makes this easy to do for Illumina data, for other use cases you might have to consider an external tool to assign the indel quality scores before calling indels.
 
@@ -73,6 +52,10 @@ lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.in
 
 An example of BAM file with indel qualities for the SRR12447392 sample of SARS-CoV-2 visualized using IGV browser.
 ![](Figures/IGV-SRR12447392-indel-quals.png)
+
+### Variant calling: iVar
+
+### Comparing variant calls
 
 ## Reference-guided assembly
 
