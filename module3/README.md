@@ -148,7 +148,7 @@ Now we can generate the consensus sequence using bcftools, currently bcftools on
 ```
 bgzip your_output.filtered.af50.vcf
 bcftools index your_output.filtered.af50.vcf.gz
-cat SARS-CoV-2-reference.fasta | bcftools consensus your_output.filtered.af50.vcf.gz > your_output.consensus.fasta
+bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.consensus.fasta your_output.filtered.af50.vcf.gz
 ```
 
 An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
