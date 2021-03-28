@@ -10,10 +10,10 @@ Fogarty International Center, National Institutes of Health
 ***
 
 ## Slide Presentations
-[[Download]](link)
+[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Slide%20Presentations)
 
 ## Supporting Materials
-[[Download]](link)
+[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Supporting%20Materials)
 
 ## Goals of this module
 * This hands on tutorial will teach you how to investigate the evolutionary history of SARS-CoV-2 genomes, through bioinformatics and phylogenetic analysis, and interpret the results to inform public health interventions.
