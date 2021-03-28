@@ -267,15 +267,15 @@ Here we are assumin that you already did
 3- Select `0` and give it `1d`  
 4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
 5- Copy and run `. .bashrc`  
-6- download the module if you did not already  
-```
-dx download -r Module2
-dx download -r source
-```
-7- Use these commands to set environment.
+6- Use these commands to set environment.
 ```
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
+```
+7- download the module if you did not already  
+```
+dx download -r Module2
+dx download -r source
 ```
 8- Run the follwing `conda activate SVanalysis`  
 9- Test  
