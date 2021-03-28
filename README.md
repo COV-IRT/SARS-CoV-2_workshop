@@ -1,6 +1,13 @@
 # SARS-CoV-2_workshop
 
 # Day 1 (Monday, March 29th, 2021)
+## Welcome session and important links: 
+[Slides](https://docs.google.com/presentation/d/1IBXFzQppWQpcc97JoGmdUG0p3TZ9xasvnHBsE5102IU/edit?usp=sharing)
+***
+Lead: Fritz Sedlazeck, Todd Treangen 
+Baylor College of Medicine
+***
+
 ## Module #1: [Sequencing and QC](module1/README.md)
 
 ***
