@@ -251,6 +251,13 @@ A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/)
 ### SV calling
 In the end we want to also identify Structural Variations (SVs). Here we are simply using [Manta](https://github.com/Illumina/manta), which was mainly designed to identify SV across a human genome.
 
+```
+cd ~/Module2
+mkdir SV
+cd SV
+```
+
+
 Manta requires two steps:
 
 ### 1. Initiate the run:
