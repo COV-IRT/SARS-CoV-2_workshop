@@ -248,7 +248,7 @@ Here we extract similar to before the 2nd column (SNV position) and bin it by 10
 
 A set of very useful methods are [bcftools](http://samtools.github.io/bcftools/) and [vcftools](https://vcftools.github.io/man_latest.html) to further filter and manipulate these files.
 
-### SV calling
+## SV calling
 In the end we want to also identify Structural Variations (SVs). Here we are simply using [Manta](https://github.com/Illumina/manta), which was mainly designed to identify SV across a human genome.
 
 ```
