@@ -41,9 +41,12 @@ Here we are assumin that you already did
 2- `dx run app-cloud_workstation --ssh`   
 3- Select `0` (project: COVID_Workshop_Baylor_Rice_instructors) 
 4- It will ask you for the duration: `1d`   
-4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Copy and run `. .bashrc`  
-6- Use these commands to set environment.
+5- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
+
+This will start the instance, next: 
+
+6- Copy and run `. .bashrc`  
+7- Use these commands to set environment.
 ```
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
