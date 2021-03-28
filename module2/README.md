@@ -275,14 +275,25 @@ This will launch the Manta pipeline that we previously configured. `-j` specifie
 
 Manta now searches for abnormal paired-end reads and split-reads across our mapped reads. These will be analyzed together and clustered to identify SV in these samples. After ~2-3 minutes you should see that the program has finished.
 
-Our SV calling results can be found here:
+Our SV calling results can be found here (Out_Manta/results/variants/). Let us open quickly the output of the highest quality SV files:
 ```
-ls Out_Manta/results/variants
+cd  Out_Manta/results/variants/
+ls 
 ```
 As you can see we have multiple VCF files. These represent the different stages of Manta and the confidence level for the SV calls. We typically use the `diploidSV.vcf.gz` file.
 
 
+Let us open quickly the output of the highest quality SV files:
+```
+less diploidSV.vcf.gz
 
+```
 
+We can see that the type we identified are BND. 
+
+Lets count how many SV we could identify: 
+```
+zgrep -vc '#' diploidSV.vcf.gz
+```
 
 
