@@ -164,7 +164,7 @@ ivar trim -b raw_data/databases/nCoV-2019.primer.bed -p processed_reads/SRR12447
 The following steps are assuming that you already did `dx ssh_config` in the intro session.  
 
 ### Steps
-1- `dx select` choes the current project using `0`   
+1- `dx select` choose the current project using `0`   
 2- `dx run app-cloud_workstation --ssh`   
 3- Select `0` and give it `1d`  
 4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
@@ -180,7 +180,7 @@ dx download -r Module1
 dx download -r source
 ```
 
-8- Run the follwing `conda activate SVanalysis`  
+8- Run the following `conda activate SVanalysis`  
 9- Test  
 ```
 which fastqc
