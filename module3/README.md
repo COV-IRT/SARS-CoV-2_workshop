@@ -36,26 +36,54 @@ The last step completes the configuration we need for this session, your prompt 
 
 ### Variant calling: LoFreq 
 
-If you want to call both indels and SNPs then you will first have to assign indel quality scores in your BAM. LoFreq makes this easy to do for Illumina data, for other use cases you might have to consider an external tool to assign the indel quality scores before calling indels.
+If you want to call both indels and SNPs then you will first have to assign indel quality scores in your BAM. LoFreq makes this easy to do for Illumina data, for other use cases you might have to consider an external tool to assign the indel quality scores before calling indels. For this workshop we have already performed this step for you and placed the output in `Data/SRR12447392.bwamem.sorted.indelqual.bam`.
 
-1. Since our dataset consists of paired-end Illumina reads we can use the built-in implementation of Dindel ([PMID 20980555](https://pubmed.ncbi.nlm.nih.gov/20980555/)) inside the LoFreq to assign the indel qualities as follows.
+1. (Optional) Since our dataset consists of paired-end Illumina reads we can use the built-in implementation of Dindel ([PMID 20980555](https://pubmed.ncbi.nlm.nih.gov/20980555/)) inside the LoFreq to assign the indel qualities as follows.
 ```
 lofreq indelqual --dindel -f SARS-CoV-2-reference.fasta -o your_bam_file.sorted.indelqual.bam your_bam_file.sorted.bam
 ```
 
 2. Now, we can call the variants using the following LoFreq command.
 ```
-lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.indel.vcf your_bam_file.sorted.indelqual.bam
+lofreq call -f SARS-CoV-2-reference.fasta --call-indels -o output_name.lofreq.indel.vcf Data/SRR12447392.bwamem.sorted.indelqual.bam
 ```
-
-**Note:** The first step is optional if you don't plan to call indels. To just call SNPs you would omit the `--call-indels` flag to `lofreq call`, and you can skip the first stpe in that case.
 
 An example of BAM file with indel qualities for the SRR12447392 sample of SARS-CoV-2 visualized using IGV browser.
 ![](Figures/IGV-SRR12447392-indel-quals.png)
 
+**CHECKPOINT:** We have provided a BAM file with indel scores added to it in the snapshot, the file is located at `Data/SRR12447392.bwamem.sorted.indelqual.bam`. You should be able to run the second command and then compare your output VCF with the provided reference run at `Output-reference/SRR12447392.lofreq.indel.vcf`. The quickest way to verify that your run was succesful is to call
+```
+diff myOutput.vcf Output-reference/SRR12447392.lofreq.indel.vcf
+```
+you should see that nothing is reported since the two outputs will be identical.
+
 ### Variant calling: iVar
 
+Now, we will call variants using iVar variant caller. To do so run
+```
+samtools mpileup -aa -A -d 500000 -B -Q 0 Data/SRR12447392.bwamem.sorted.bam | ivar variants -p Output/your_output_name_prefix -q 20 -t 0 -r Data/SARS-CoV-2-reference.fasta -g Data/SARS-CoV-2-reference.gff3
+```
+**Note:** We explicitly ask iVar to not filter out any variants by setting allele frequency threshold to 0 with the `-t` flag, as the result of this you will see that your output is extremely noisy. 
+
+**CHECKPOINT:** Similarly to the LoFreq case we can validate that everything ran as expected by checking the `diff` between our output and the reference output
+```
+diff myOutput.tsv Output-reference/SRR12447392-ivar.tsv
+```
+
 ### Comparing variant calls
+
+Finally, after obtaining two sets of variant calls we can merge them to see what mutations are picked up by both tools. Since, we haven't applied any allele frequncy filters in the previous steps our calls are very noisy now. We can apply the allele frequency filter at this final merging stage. 
+
+To merge variants we will use a simple Python script `MergeCalls.py` provided both in this repository and in your instance snapshots.
+```
+python MergeCalls.py --min-af 0.02 -p -o Output/merged-calls-af-0.02-pass-only.tsv Output/SRR12447392-ivar.tsv Output/SRR12447392.lofreq.vcf 
+```
+The `--min-af` flag will determine minimum allele freqeuncy that should be reported by at least one of the two variant callers for the given variant. The `-p` flag determines whether we only want to retain variants for which iVar statistical test indicated p-value <= 0.05, if this flag is not provided the `PASS` value of the iVar output is ignored. 
+
+**CHECKPOINT:** You can use `diff` again to compare your results of running the above command with our pre-computed reference
+```
+diff Output/merged-calls-af-0.02-pass-only.tsv Output-reference/merged-calls-af-0.02-pass-only.tsv
+```
 
 ## Reference-guided assembly
 
