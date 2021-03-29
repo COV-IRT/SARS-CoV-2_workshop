@@ -236,7 +236,7 @@ Next: [module4!](../module4/README.md)
 
 ## Advanced details
 
-### Variant calling and consensus geenrating environment setup for a local machine
+### Variant calling and consensus generating environment setup for a local machine
 
 We have set up our variant calling enviorment using conda. To do so we first need to have a conda envrionment manager set up on the machine. Next we will need to add relevant channels
 ```
