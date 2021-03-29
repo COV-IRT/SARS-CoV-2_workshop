@@ -33,9 +33,10 @@ The following steps are assuming that you already did `dx ssh_config` in the int
 2- `dx run --instance-type mem2_ssd1_v2_x32 app-cloud_workstation --ssh`   
 3- Select `0` and give it `1d`  
 4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Press 'Enter' & 'Y' to start the DNANexus instance. 
-6- Copy and run `source .bashrc` to activate base conda environment. In some case this command may need to be run multiple times. Successful execution of this command will add text _(base)_ to the command prompt as show here: **(base) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~**
-7- Use these commands to set environment.  
+5- Press 'Enter' & 'Y' to start the DNANexus instance  
+6- Copy and run `source .bashrc` to activate base conda environment. In some case this command may need to be run multiple times.  
+   Successful execution of this command will add text _(base)_ to the command prompt as show here ``` (base) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~ ```   
+7- Use these commands to set environment
 ```
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
@@ -47,7 +48,8 @@ dx download -r Module1
 dx download -r source
 ```
 
-9- Run the following `conda activate SVanalysis`. This activates the conda environment that contains tools used in Modules 1 and 2. Note the change in command prompt to **(SVanalysis) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~**   
+9- Run the following `conda activate SVanalysis`. This activates the conda environment that contains tools used in Modules 1 and 2.   
+   Note the change in command prompt to ``` (SVanalysis) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~ ```  
 10- Test. If the prompt returns a path to the tool, you have success.    
 ```
 which fastqc
@@ -119,7 +121,20 @@ ls -l fastqc_report/
 > Explore the statistics reported in the fastqc outputs. What do you think?     
 <br>  
 
-When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. If you open one of the html files and you should see a report like the one shown below.  
+When the command has finished executing you should see 4 files in the output directory. There is an `html` file per pair and a `zip` file that contains the tables used in creating the plots in the html report. Html files can be opened from the DNAnexus web GUI. Execute the following commands to upload the files to the workshop space that is accessible in web GUI. 
+
+```
+#create a new directory to save the html files to
+dx mkdir <your name here>
+
+#navigate to your directory
+dx cd <your name here>
+
+#upload fastqc output
+dx upload fastqc_report/*.*
+```
+Open the browser on your laptop and navigate to https://platform.dnanexus.com/login. Login with your username and password to access the directory your created above. If you open one of the html files and you should see a report like the one shown below.  
+
 <br>  
 
 ![](img/SRR12447392-fastqcReport.png)  
