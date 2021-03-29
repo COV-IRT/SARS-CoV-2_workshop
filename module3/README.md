@@ -231,3 +231,29 @@ In the output directory `de_novo`, we can find a file named `final.contigs.fa`, 
 What is the length of the longest contig in the assembly? The reference sequence of SARS-CoV-2 has a length of 29903bp, what conclusion can you draw?
 
 Next: [module4!](../module4/README.md)
+
+***
+
+## Advanced details
+
+### Variant calling and consensus geenrating environment setup for a local machine
+
+We have set up our variant calling enviorment using conda. To do so we first need to have a conda envrionment manager set up on the machine. Next we will need to add relevant channels
+```
+conda config --add channels conda-forge
+conda config --add channels bioconda
+```
+
+Now, we can install relevant packages by running
+```
+conda install samtools
+conda install bwa
+conda install lofreq
+conda install ivar
+conda install bcftools
+```
+
+For the `MergeCalls.py` we need to additionally install
+```
+conda install pandas pyvcf
+```
