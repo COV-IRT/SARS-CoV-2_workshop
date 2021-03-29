@@ -214,4 +214,4 @@ ivar trim -b raw_data/databases/nCoV-2019.primer.bed -p processed_reads/SRR12447
 
 ***
 
-Next: [module2!](module2.rst)
+Next: [module2!](../module2/README.md)

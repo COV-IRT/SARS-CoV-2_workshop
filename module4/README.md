@@ -99,4 +99,4 @@ cd awesome_data
 ```
 This dataset contains paired end reads. 
 -->
-Next: [done!](done.rst)
+Next: [done!](../README.md)

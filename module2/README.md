@@ -296,4 +296,5 @@ Lets count how many SV we could identify:
 zgrep -vc '#' diploidSV.vcf.gz
 ```
 
+Next: [module3!](../module3/README.md)
 
