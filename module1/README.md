@@ -131,7 +131,7 @@ dx mkdir <your name here>
 dx cd <your name here>
 
 #upload fastqc output
-dx upload fastqc_report/*.*
+dx upload ../fastqc_report/*.*
 ```
 Open the browser on your laptop and navigate to https://platform.dnanexus.com/login. Login with your username and password to access the directory your created above. If you open one of the html files and you should see a report like the one shown below.  
 
