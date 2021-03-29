@@ -19,9 +19,13 @@ Rice University
 ## Schedule
 
 9:30am - 10:00am  **Lecture:** Reference guided assembly and low frequency variant calling
+
 10:00am - 10:50am **Pratical module:** Low frequency variant calling
+
 10:50am - 11:00am **Q&A:** Low frequency variant calling + Break
+
 11:00am - 11:50am **Practical module:** Reference guided assembly
+
 11:50am - 12:00pm **Q&A:** Reference guided assembly + Break
 
 ***
