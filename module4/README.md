@@ -9,12 +9,6 @@ TA: James R. Otieno
 Fogarty International Center, National Institutes of Health
 ***
 
-## Slide Presentations
-[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Slide%20Presentations)
-
-## Supporting Materials
-[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Supporting%20Materials)
-
 ## Goals of this module
 * This hands on tutorial will teach you how to investigate the evolutionary history of SARS-CoV-2 genomes, through bioinformatics and phylogenetic analysis, and interpret the results to inform public health interventions.
 
@@ -35,12 +29,19 @@ Fogarty International Center, National Institutes of Health
   * Interpretation
   * Phylogenetic signal consideration for advances phylodynamic modeling
 
-
 ***
 
 ## Background On phylogenetic analysis
 
 Phylogenetics investigates the species evolutionary processes at different biological scales ranging from within-host evolution of persistently infecting viruses, such as HIV and HBV, to the global epidemic spread of SARS-CoV-2 for instance. To this purpose, we aim at integrating molecular biology and computational biology models to understand the underlying mechanisms of disease in populations. 
+
+## Slide Presentations
+
+[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Slide%20Presentations)
+
+## Supporting Materials
+
+[[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Supporting%20Materials)
 
 ## Software required
 
