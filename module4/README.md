@@ -29,19 +29,22 @@ Fogarty International Center, National Institutes of Health
   * Interpretation
   * Phylogenetic signal consideration for advances phylodynamic modeling
 
-***
 
 ## Background On phylogenetic analysis
 
 Phylogenetics investigates the species evolutionary processes at different biological scales ranging from within-host evolution of persistently infecting viruses, such as HIV and HBV, to the global epidemic spread of SARS-CoV-2 for instance. To this purpose, we aim at integrating molecular biology and computational biology models to understand the underlying mechanisms of disease in populations. 
 
+***
+
 ## Slide Presentations
 
 [[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Slide%20Presentations)
 
+
 ## Supporting Materials
 
 [[Download]](https://github.com/COV-IRT/SARS-CoV-2_workshop/tree/main/module4/Supporting%20Materials)
+
 
 ## Software required
 
@@ -86,7 +89,9 @@ The first step to starting phylogenetic analysis -> context to DNAnexus
 *Connect to your DNAnexus instance and open up a shell prompt.*
 -->
 
-**Commands for subsampling large genetic datasets**
+***
+
+## Commands for subsampling large genetic datasets
 
 * Run fastatool.py to remove duplicate sequences
 
