@@ -40,6 +40,8 @@ Fogarty International Center, National Institutes of Health
 
 ## Background On phylogenetic analysis
 
+Phylogenetics investigates the species evolutionary processes at different biological scales ranging from within-host evolution of persistently infecting viruses, such as HIV and HBV, to the global epidemic spread of SARS-CoV-2 for instance. To this purpose, we aim at integrating molecular biology and computational biology research models to understand the underlying mechanisms of disease in populations. 
+
 ## Software required
 
 **Windows software (download and install all)**  
