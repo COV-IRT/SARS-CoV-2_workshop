@@ -160,6 +160,43 @@ After the vcf is indexed, call consensus based on the reference fasta.
 bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.consensus.fasta your_output.filtered.af50.vcf.gz
 ```
 
+### Parameter tuning of reference-guided assembly
+There are a lot of parameters involved in the reference-guided assembly pipeline. Here we mainly focus on the parameters during the consensus calling process. In this section, we will try generate consensus sequences of the same dataset using different minimum allele frequency cutoff during the vcf filtering, and we will try generate consensus sequences of the same dataset with and without using iupac-codes. 
+
+1. Generate consensus with minimum allele frequency of 0.02
+First, filtered the orginal vcf file with the following command:
+```
+lofreq filter -a 0.02 -i your_input.vcf -o your_output.filtered.af02.vcf
+```
+Then follows the steps in the consensus construction section, remember to output the consensus with a different file name.
+
+2. Generate consensus with minimum allele frequency of 0.99
+First, filtered the orginal vcf file with the following command:
+```
+lofreq filter -a 0.99 -i your_input.vcf -o your_output.filtered.af99.vcf
+```
+Then follows the steps in the consensus construction section, remember to output the consensus with a different file name.
+
+**CHECKPOINT:** Use command `nl your_output.filtered.af02.vcf`, `nl your_output.filtered.af50.vcf`, and `nl your_output.filtered.af99.vcf` to view the filtered vcf files. Have you notice any difference?
+
+3. Generate consensus with minimum allele frequncy of 0.5 with iupac-codes enabled, then compare it to the consensus we previously generated with the same parameters except iupac-codes.
+First, filtered the orginal vcf file with the following command:
+```
+lofreq filter -a 0.5 -i your_input.vcf -o your_output.filtered.af50.vcf
+```
+Then use the following command to compress and index the vcf file:
+```
+bgzip your_output.filtered.af50.vcf
+bcftools index your_output.filtered.af50.vcf.gz
+```
+To generate a consensus sequence with iupac-codes enabled, use `-I` option:
+```
+bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.iupac.consensus.fasta -I your_output.filtered.af50.vcf.gz
+```
+
+**CHECKPOINT:** Use command `diff your_output.iupac.consensus.fasta your_output.consensus.fasta` to compare difference between two consensus sequence. Have you notice any difference?
+
+
 An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
 ![](Figures/IGV-Zoom-in.png)
 
