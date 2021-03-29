@@ -218,4 +218,4 @@ megahit -1 Data/SRR12447392_1.fastq -2 Data/SRR12447392_2.fastq -o de_novo
 In the output directory `de_novo`, we can find a file named `final.contigs.fa`, which contains the contigs construct without using reference genome. Let's view the assembly with `less de_novo/final.contigs.fa`, use Ctrl+Z to exit viewing mode. 
 What is the length of the longest contig in the assembly? The reference sequence of SARS-CoV-2 has a length of 29903bp, what conclusion can you draw?
 
-Next: [module4!](module4/README.md)
+Next: [module4!](../module4/README.md)
