@@ -215,6 +215,16 @@ Chose 30 (or all) from each category using fields [3, 4] and preferences UDGAL
 user$ iqtree -s Study_and_Background_aled_noDups_sub.fas
 
 ```
+If you'd want to use the GTR model:
+```
+user$ iqtree -s Study_and_Background_aled_noDups_sub.fas -m GTR+I+G
+
+```
+If you'd want to include tree search, SH-aLRT test and ultrafast bootstrap with 1000 replicates:
+```
+user$ iqtree -s Study_and_Background_aled_noDups_sub.fas -B 1000 -alrt 1000
+
+```
 
 * Run fasttree to infer an ML tree from a sequence alignment (Study_and_Background_aled_noDups_sub.fas) with the gtr model:
 ```
