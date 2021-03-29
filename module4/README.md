@@ -31,11 +31,12 @@ Fogarty International Center, National Institutes of Health
   * Visualizing Phylogenetic Trees in FigTree
   * Basic Interpretation of Phylogenetic Trees
 
-***
 
 ## Background On phylogenetic analysis
 
 Phylogenetics investigates the species evolutionary processes at different biological scales ranging from within-host evolution of persistently infecting viruses, such as HIV and HBV, to the global epidemic spread of SARS-CoV-2 for instance. To this purpose, we aim at integrating molecular biology and computational biology models to understand the underlying mechanisms of disease in populations. 
+
+***
 
 ## Slide Presentations
 
@@ -80,25 +81,108 @@ Phylogenetics investigates the species evolutionary processes at different biolo
 
 [[Access]](https://www.hiv.lanl.gov/content/sequence/IQTREE/iqtree.html) IQTree server 2 web
 
+***
 
-<!--
-The first step to starting phylogenetic analysis -> context to DNAnexus
--->
-<!--
-*Connect to your DNAnexus instance and open up a shell prompt.*
--->
-<!--
-Install XYZ
+## Commands 
+
+* Run mafft to align genetic dataset using a reference sequence
+```
+mafft --auto --thread 4 --addfragments Study_and_Background.fas Wuhan-Hu-1.fasta > Study_and_Background_al.fas
+```
+
+* Run fastatool.py to remove duplicate sequences
 ```
 conda install -c bioconda -y XYZ
 ```
--->
-<!--
-Accesws the data: FIXME
-```
-cd awesome_data
 
+* Run subsample_covid.py to subsample large genetic datasets based on metadata
 ```
-This dataset contains paired end reads. 
--->
+user$ python3 subsample_covid.py 
+
+Enter FASTA-format file for input: Study_and_Background_aled_noDups.fas
+Enter name for FASTA-format output file: Study_and_Background_aled_noDups_sub.fas
+Enter delimiter, or return for '|': 
+Example tag values:
+
+0  DC                              hCoV-19/Uruguay/UY-NYUMC857...
+1  MT646069                        EPI_ISL_457953                
+2  B.1.1.33                        B.1.1.33                      
+3  USA                             Uruguay                       
+4  2020-03-07                      2020-03-23                    
+
+Note: only the year will be used if the date field is included
+
+Enter one or more field numbers separated by commas or whitespace, or S to load spreadsheet: 3,4
+
+35 categories
+Mean category size: 49.23
+Minimum: 1
+Maximum: 1053
+
+Save a spreadsheet showing category sizes? y(es)/N(o) (RETURN for No): y
+Enter name for output spreadsheet (CSV) file: Study_and_Background_aled_noDups.csv
+
+Wrote CSV file Study_and_Background_aled_noDups.csv
+
+Launch CSV file Study_and_Background_aled_noDups.csv now? y(es)/N(o) (RETURN for No): y
+
+Launched CSV file
+
+Total samples for some choices of samples per category:
+
+   1  35                    60  401
+   2  59                    70  435
+   3  75                    80  465
+   4  91                    90  495
+   5  104                  100  517
+   6  117                  200  717
+   7  129                  300  917
+   8  141                  400  1070
+   9  151                  500  1170
+  10  161                  600  1270
+  20  228                  700  1370
+  30  278                  800  1470
+  40  321                  900  1570
+  50  361                 1000  1670
+
+Number to sample from each category: 30
+
+278 sequences will be sampled
+
+Save a spreadsheet showing category sizes and number sampled for editing and reloading? y(es)/N(o) (RETURN for No): y
+Enter name for output spreadsheet (CSV) file: Study_and_Background_aled_noDups_Sub.csv
+
+Wrote CSV file Study_and_Background_aled_noDups_Sub.csv
+
+Launch CSV file Study_and_Background_aled_noDups_Sub.csv now? y(es)/N(o) (RETURN for No): y
+
+Launched CSV file
+
+Specify the criteria for choosing within a category, 
+in order of importance.  The first criterion takes priority, 
+so the others only matter when candidates are "tied" for the
+first.  Similarly, the second takes priority over all but 
+the first, and so on.  Randomization applies in all cases.
+
+Specify one or more letters (either case), separated by whitespace, commas, or nothing:
+
+N  No preferences.  Purely random choice.  Must be only letter specified.
+U  Seek uniformity of date distribution.
+   If used, this must come first in priorities,
+   and the date (in effect, year) must be part of
+   the category definition.
+L  Maximize sequence length (includes internal gaps, but not leading and trailing gaps)
+D  Completeness of date.  YMD > YM > Y
+M  Presence of month; no preference for YMD over YM.
+   It can be meaningful and useful to provide both D and M,
+   provided that M comes first and something comes between, e.g., MLD.
+G  Minimize number of internal gaps with lengths not divisible by 3 and less than 5
+A  Minimize number of ambiguity characters (N, etc.).
+
+Specify preferences for isolate selection in order of priority: UDGAL
+
+Chose 30 (or all) from each category using fields [3, 4] and preferences UDGAL
+278 sequences written to Study_and_Background_aled_noDups_sub.fas
+```
+
 Next: [done!](../README.md)
