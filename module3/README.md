@@ -142,6 +142,9 @@ In the previous step, we have generated the vcf file for the targeted alignment 
 ```
 lofreq filter -a 0.5 -i your_input.vcf -o your_output.filtered.af50.vcf
 ```
+**Note:** Lofreq will run a set of default filters in `lofreq call`, this step can be manually turn off using the option `--no-default-filter`.
+
+**Note:** By default, `lofreq call` does not allow output overwrite. If you have run variant calling multiple times with the same output name, use option `--force-overwrite`.
 
 ### Construction of consensus sequence
 Now we can generate the consensus sequence using bcftools, currently bcftools only supports compressed gz file format, so we have to first compress the vcf file.
