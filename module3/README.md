@@ -124,7 +124,7 @@ conda config --add channels bioconda
 ```
 Next, activate the working environment using 
 ```
-conda activate workshop-env
+conda activate consensus
 ```
 Install tools using 
 ```
@@ -179,6 +179,8 @@ Then follows the steps in the consensus construction section, remember to output
 
 **CHECKPOINT:** Use command `nl your_output.filtered.af02.vcf`, `nl your_output.filtered.af50.vcf`, and `nl your_output.filtered.af99.vcf` to view the filtered vcf files. Have you notice any difference?
 
+Visualization of different vcf files generated with different parameters can be found [here](https://tinyurl.com/yfnrv7ol)
+
 3. Generate consensus with minimum allele frequncy of 0.5 with iupac-codes enabled, then compare it to the consensus we previously generated with the same parameters except iupac-codes.
 First, filtered the orginal vcf file with the following command:
 ```
@@ -196,8 +198,24 @@ bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.iupac.consensus.
 
 **CHECKPOINT:** Use command `diff your_output.iupac.consensus.fasta your_output.consensus.fasta` to compare difference between two consensus sequence. Have you notice any difference?
 
+### Evaluation of the assembly
+One sample way to evaluate the assembly is to map the input reads back to the assembly (consensus sequence) that you have generated. The conda enviorment `consensus` has included bwa mem and samtools for you to perform the read mapping. After you have generated the sorted BAM file, use the following command to check the alignment stats:
+```
+samtools stats your_input.sorted.bam > stats.txt
+head -n 40 stats.txt
+```
+You can also compare the stats of the alignments using reference genome and the stats of the alignments using assembly (consensus sequence). 
+
+### Bonus: compare reference-guided assembly with de novo assembly
+The conda enviorment `consensus` has included a de novo assembler Megahit. Let's generate a de novo assembly:
+```
+megahit -1 Data/SRR12447392_1.fastq -2 Data/SRR12447392_2.fastq -o de_novo
+```
+In the output directory `de_novo`, we can find a file named `final.contigs.fa`, which contains the contigs construct without using reference genome. Let's view the assembly with `less de_novo/final.contigs.fa`, use Ctrl+Z to exit viewing mode. 
+What is the length of the longest contig in the assembly? The reference sequence of SARS-CoV-2 has a length of 29903bp, what conclusion can you draw?
 
 An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
+
 ![](Figures/IGV-Zoom-in.png)
 
 Next: [module4!](module4.rst)
