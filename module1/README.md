@@ -8,7 +8,7 @@ Baylor College of Medicine
 ***
 
 ## Goals of this module
-This hands on tutorial will teach you how to explore Illumina raw sequence data and perform quality filtering and adapter trimming. We will also cover contaminate sequences removal (e.g. host DNA) and expolre one way of removing amplicon sequencing primers from the raw reads. The outputs of this tutorial will be used in the next modules.      
+This hands-on tutorial will teach you how to explore Illumina raw sequence data and perform quality filtering and adapter trimming. We will also cover contaminate sequences removal (e.g. host DNA) and explore one way of removing amplicon sequencing primers from the raw reads. The outputs of this tutorial will be used in the next modules.      
 
 ## Learning Objectives
 * Learn how to review your raw fastqs files and asses quality.    
@@ -20,7 +20,7 @@ This hands on tutorial will teach you how to explore Illumina raw sequence data 
 
 ## Background On QC
 
-It is always a good idea to perform some data exploration on your raw sequence reads to assess their quality and the presence of non-biological sequences in your reads (e.g. adapters, primers). Depending on your sequencing method you might also need to remove any non-target reads, such as host DNA or spike-ins. A final optional step is to perform an intial screening to get an overview of what is present in your sample. We covered most of the theory of these steps in the lecture, now let's see how they are implemented in practice.    
+It is always a good idea to perform some data exploration on your raw sequence reads to assess their quality and the presence of non-biological sequences in your reads (e.g. adapters, primers). Depending on your sequencing method you might also need to remove any non-target reads, such as host DNA or spike-ins. A final optional step is to perform an initial screening to get an overview of what is present in your sample. We covered most of the theory of these steps in the lecture, now let's see how they are implemented in practice.    
 
 ***
 *Connect to your DNAnexus instance and open up a shell prompt.*
@@ -33,22 +33,22 @@ The following steps are assuming that you already did `dx ssh_config` in the int
 2- `dx run --instance-type mem2_ssd1_v2_x32 app-cloud_workstation --ssh`   
 3- Select `0` and give it `1d`  
 4- Select `2` copy and paste this directory to prompt `source/module1-2_tools`  
-5- Press 'Enter' & 'Y'
-5- Copy and run `source .bashrc`. Successful execution of this command will activate base conda environment and the text _(base)_ is displayed at command prompt.   
-6- Use these commands to set environment.  
+5- Press 'Enter' & 'Y' to start the DNANexus instance. 
+6- Copy and run `source .bashrc` to activate base conda environment. In some case this command may need to be run multiple times. Successful execution of this command will add text _(base)_ to the command prompt as show here: **(base) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~**
+7- Use these commands to set environment.  
 ```
 unset DX_WORKSPACE_ID
 dx cd $DX_PROJECT_CONTEXT_ID:
 ```
 
-7- Download the module if you did not already  
+8- Download the module if you did not already  
 ```
 dx download -r Module1
 dx download -r source
 ```
 
-8- Run the following `conda activate SVanalysis`  
-9- Test. If the prompt returns a path to the tool, you have success.    
+9- Run the following `conda activate SVanalysis`. This activates the conda environment that contains tools used in Modules 1 and 2. Note the change in command prompt to **(SVanalysis) dnanexus@job-G1QPYX00VJZk171KG87Zjbz7:~**   
+10- Test. If the prompt returns a path to the tool, you have success.    
 ```
 which fastqc
 which bbmap.sh 
@@ -80,7 +80,7 @@ prefetch -v SRR12447392
 # chose where you want to download the files to (note: if you choose raw_data you will overwrite the existing files there)
 fastq-dump --outdir <path-to-output> --split-files /home/dnanexus/ncbi/public/sra/SRR12447392.sra 
 ```
-> Why don't you try to downloading this SRR or a different one (e.g. SRR14023759) using the commands above?  
+> Why don't you try downloading this SRR or a different one (e.g. SRR14023759) using the commands above?  
 <br>  
 
 ## Quality Trimming Your Sequence Data
@@ -102,7 +102,7 @@ cat raw_data/SRR12447392_1.fastq | head -8
 > What do you see in the output of the command? Is it different from what you expected and if so how?  
 <br>  
 
-### FastQC - visaulization of the sequence quality
+### FastQC - visualization of the sequence quality
 
 There are many ways of assessing sequence quality and a variety of tools available. We will be using [FastQC](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/) in this workshop, because it offers a fast and simple way to visualize a single sample.  
 
@@ -129,7 +129,7 @@ When the command has finished executing you should see 4 files in the output dir
 We'll be using the [BBMap](https://sourceforge.net/projects/bbmap/) suite of tools for the next few steps. This is a collection of tools used for different types of sequence processing, from trimming to mapping and assembly.  
 <br>  
 
-1. Read lenght distribution (another way of looking at it)  
+1. Read length distribution (another way of looking at it)  
 ```
 # Get a histogram of read lengths
 readlength.sh in=raw_data/SRR12447392_1.fastq in2=raw_data/SRR12447392_2.fastq out=SRR12447392.length-preTrimmed.txt
@@ -158,7 +158,7 @@ If you run the `readlength.sh` command on the trimmed files, how is it different
 
 ### BBMap - host removal  
 
-Most data sets that are uploaded to NCBI will likely have the host reads removed, in particular when it is human patient samples. However, this will not be the case for data you get directly from a sequencer. The amount of contaminant or host DNA will depend on the sequencing method. For example, targeted amplification or capture sequencing approaches are designed to minimise non-specific read sequencing. But some sample types (e.g. low biomas samples) are prone to more unspecific reads noise, so it is useful to be able to remove those reads prior to downstream processing.  
+Most data sets that are uploaded to NCBI will likely have the host reads removed, in particular when it is human patient samples. However, this will not be the case for data you get directly from a sequencer. The amount of contaminant or host DNA will depend on the sequencing method. For example, targeted amplification or capture sequencing approaches are designed to minimize non-specific read sequencing. But some sample types (e.g. low biomass samples) are prone to more unspecific reads noise, so it is useful to be able to remove those reads prior to downstream processing.  
 <br>  
 
 ```
@@ -168,7 +168,7 @@ bbmap.sh -Xmx24g in=processed_reads/trimmed_SRR12447392_1.fastq in2=processed_re
 # separate the interleaved file into read1 and read2 files
 reformat.sh in=processed_reads/humanRemoved_SRR12447392.fastq out1=processed_reads/humanRemoved_SRR12447392_1.fastq out2=processed_reads/humanRemoved_SRR12447392_2.fastq
 ```
-*Note: We are using the [GRCh38.patch13](https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.39) human reference genome. For the purposes of this workshop we have provided you with a pre-indexed database ready to use with BBMap. If you would like to use a different reference it will need to be indexed during the first use and that can take some time. To learn more about option and explore the parameters try running `bbmap.sh | less` or going to the BBMap website.*  
+*Note: We are using the [GRCh38.patch13](https://www.ncbi.nlm.nih.gov/assembly/GCF_000001405.39) human reference genome. For the purposes of this workshop, we have provided you with a pre-indexed database ready to use with BBMap. If you would like to use a different reference it will need to be indexed during the first use and that can take some time. To learn more about option and explore the parameters try running `bbmap.sh | less` or going to the BBMap website.*  
 <br>  
 
 Because the log file generated by the bbmap step isn't the most informative in terms of how many reads were remove, you could run the folowing command to get a feel for how the read counts have changed.  
@@ -184,7 +184,7 @@ What number do you get if you count the lines in logs/SRR12447392.hostMapped.sam
 
 ### iVar - removing ARTIC primers
 
-The final step in Module1 is removing the amplification primers from our reads. This will be done by using the primer positions given in the [Artic primer BED](https://raw.githubusercontent.com/artic-network/primer-schemes/master/nCoV-2019/V3/nCoV-2019.primer.bed) file to soft clip the primer sequences in a SARS-CoV2 reference aligned and sorted BAM file. We will be using `bwa`, `samtools` and [iVar](https://andersen-lab.github.io/ivar/html/index.html) to do this. A more detailed explanation about alignment, refrence mapping and the SAM/BAM format will be given in Module2.  
+The final step in Module1 is removing the amplification primers from our reads. This will be done by using the primer positions given in the [Artic primer BED](https://raw.githubusercontent.com/artic-network/primer-schemes/master/nCoV-2019/V3/nCoV-2019.primer.bed) file to soft clip the primer sequences in a SARS-CoV2 reference aligned and sorted BAM file. We will be using `bwa`, `samtools` and [iVar](https://andersen-lab.github.io/ivar/html/index.html) to do this. A more detailed explanation about alignment, reference mapping and the SAM/BAM format will be given in Module2.  
 <br>  
 
 ```
