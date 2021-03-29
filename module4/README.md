@@ -30,6 +30,7 @@ Fogarty International Center, National Institutes of Health
   * Understanding the Bootstrap
   * Visualizing Phylogenetic Trees in FigTree
   * Basic Interpretation of Phylogenetic Trees
+  * Common Phylogenetic Tree Building Pitfalls
 
 
 ## Background On phylogenetic analysis
@@ -87,37 +88,12 @@ Phylogenetics investigates the species evolutionary processes at different biolo
 
 * Run mafft to align genetic dataset using a reference sequence
 ```
-user$ mafft --auto --thread 4 --addfragments Study_and_Background.fas Wuhan-Hu-1.fasta > Study_and_Background_al.fas
+mafft --auto --thread 4 --addfragments Study_and_Background.fas Wuhan-Hu-1.fasta > Study_and_Background_al.fas
 ```
 
 * Run fastatool.py to remove duplicate sequences
 ```
-user$ python3 fastatool.py 
----Starting Fasta Modifcation Tool---
-
-What operation (subsample,clean,tag,extension,review,genome): clean
-*** Starting Fasta Clean ***
-** Remove duplicate sequences, remove sparse columns, and remove sparse sequences **
-Filepath for input (must be .fa (or .fas) or .csv format): Study_and_Background_aled.fas
-INITIAL COUNT: 1848
-Percent under max length for which columns will be cut (enter .5 for 50%): .5
-REMOVED COLUMNS COUNT: 0
-Percent under max length for which lines will be cut (enter .75 for 75%): .75
-REMOVED LENGTH COUNT: 0
-Example tag values:
-
-0  >DC                             >hCoV-19/USA/TX-DSHS-2612/2021
-1  MT646069                        EPI_ISL_983609                
-2  B.1.1.33                        B.1.1.33                      
-3  USA                             USA                           
-4  2020-03-07                      2021-01-23                    
-5  ----------------AGATCTGTTCT...  ----------------AGATCTGTTCT...
-
-Enter the tag numbers for which duplicates will be compared by (starts at 0, comma-separated): 3,4,5
-REMOVED DUP COUNT: 125
-
-Filepath for output (will create a new file if none exist): Study_and_Background_aled_woDups.fas
-
+conda install -c bioconda -y XYZ
 ```
 
 * Run subsample_covid.py to subsample large genetic datasets based on metadata
