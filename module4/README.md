@@ -44,40 +44,26 @@ Phylogenetics investigates the species evolutionary processes at different biolo
 
 ## Software required
 
+[[Download]](https://drive.google.com/drive/folders/1imHg2WHql35rGzXpOyGZ6gKtUGYdcvNu?usp=sharing)
+
+<!--
 **Windows software (download and install all)**  
-
 [[Download]](https://www.oracle.com/java/technologies/javase-jre8-downloads.html) Java JRE x64 v8 _pick the 1st "Windows x64" on the list_
-
 [[Download]](https://ormbunkar.se/aliview/downloads/windows/windows-version-1.26/AliView-Setup.exe) AliView v1.26
-
 [[Download]](https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.zip) FigTree v1.4.4
-
 [[Download]](https://www.megasoftware.net/) MEGA v10 _pick Windows|Graphical(GUI)|MEGA X(64bit)_
-
 [[Download]](https://github.com/beast-dev/beast-mcmc/releases/download/v1.5.3-tempest/TempEst.v1.5.3.zip) TempEst v1.5.3
-
 [[Download]](/python.html) Python v3.8.6 and Biopython
-
 [[Download]](https://github.com/notepad-plus-plus/notepad-plus-plus/releases/download/v7.9/npp.7.9.Installer.x64.exe) Notepad Plus Plus v7.9 (Text editor)
-
-
-
 **macOS software (download and install all)**  
-
 [[Download]](https://www.oracle.com/java/technologies/javase-jre8-downloads.html) Java JRE x64 v8 _pick "macOS x64 Installer"_
-
 [[Download]](https://ormbunkar.se/aliview/downloads/mac/AliView-1.26-app.zip) AliView v1.26
-
 [[Download]](https://github.com/rambaut/figtree/releases/download/v1.4.4/FigTree.v1.4.4.dmg) FigTree v1.4.4
-
 [[Download]](https://www.megasoftware.net/) MEGA v10 _pick macOS|Graphical(GUI)|MEGA X(64bit)_
-
 [[Download]](https://github.com/beast-dev/beast-mcmc/releases/download/v1.5.3-tempest/TempEst.v1.5.3.dmg) TempEst v1.5.3
-
 [[Download]](/python.html) Python v3.8.6 and Biopython
-
 [[Download]](https://s3.amazonaws.com/BBSW-download/BBEdit_13.5.dmg) BBEdit v13.5 (Text editor)
-
+-->
 
 **Web tools (installation not required)**  
 
