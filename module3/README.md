@@ -160,6 +160,10 @@ After the vcf is indexed, call consensus based on the reference fasta.
 bcftools consensus -f SARS-CoV-2-reference.fasta -o your_output.consensus.fasta your_output.filtered.af50.vcf.gz
 ```
 
+An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
+
+![](Figures/IGV-Zoom-in.png)
+
 ### Parameter tuning of reference-guided assembly
 There are a lot of parameters involved in the reference-guided assembly pipeline. Here we mainly focus on the parameters during the consensus calling process. In this section, we will try generate consensus sequences of the same dataset using different minimum allele frequency cutoff during the vcf filtering, and we will try generate consensus sequences of the same dataset with and without using iupac-codes. 
 
@@ -214,8 +218,4 @@ megahit -1 Data/SRR12447392_1.fastq -2 Data/SRR12447392_2.fastq -o de_novo
 In the output directory `de_novo`, we can find a file named `final.contigs.fa`, which contains the contigs construct without using reference genome. Let's view the assembly with `less de_novo/final.contigs.fa`, use Ctrl+Z to exit viewing mode. 
 What is the length of the longest contig in the assembly? The reference sequence of SARS-CoV-2 has a length of 29903bp, what conclusion can you draw?
 
-An example of the alignments of reads and a variant with high frequency for a SARS-CoV-2 sample (SRR12447392) zoomed in at position 14310-14511.
-
-![](Figures/IGV-Zoom-in.png)
-
-Next: [module4!](module4.rst)
+Next: [module4!](module4/README.md)
