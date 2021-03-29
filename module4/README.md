@@ -210,7 +210,7 @@ Chose 30 (or all) from each category using fields [3, 4] and preferences UDGAL
 278 sequences written to Study_and_Background_aled_noDups_sub.fas
 ```
 
-* Run iqtree to infer an ML tree from a sequence alignment (Study_and_Background_aled_noDups_sub.fas) with the best-fit model automatically selected by ModelFinder. The output tree will be saved as Study_and_Background_aled_noDups_sub.fas.treefile:
+* Run iqtree to infer an ML tree from a sequence alignment with the best-fit model automatically selected by ModelFinder. The output tree will be saved as Study_and_Background_aled_noDups_sub.fas.treefile:
 ```
 user$ iqtree -s Study_and_Background_aled_noDups_sub.fas
 
@@ -226,7 +226,7 @@ user$ iqtree -s Study_and_Background_aled_noDups_sub.fas -B 1000 -alrt 1000
 
 ```
 
-* Run fasttree to infer an ML tree from a sequence alignment (Study_and_Background_aled_noDups_sub.fas) with the gtr model:
+* Run fasttree to infer an ML tree from a sequence alignment with the GTR model:
 ```
 user$ fasttree -gtr -nt Study_and_Background_aled_noDups_sub.fas > Study_and_Background_aled_noDups_sub_fasttree.tre
 
