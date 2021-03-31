@@ -212,6 +212,14 @@ samtools index processed_reads/SRR12447392_sorted.bam
 ivar trim -b raw_data/databases/nCoV-2019.primer.bed -p processed_reads/SRR12447392_trimmed -i processed_reads/SRR12447392_sorted.bam 1>logs/SRR12447392.ivar.log
 ```
 
+### Setting up conda environment for Modules 1 & 2
+
+1.	Install [conda](https://conda.io/projects/conda/en/latest/user-guide/install/index.html)
+2.	Download [SVanalysis.yml](https://github.com/COV-IRT/SARS-CoV-2_workshop/blob/main/module1/SVanalysis.yml). 
+   It has a list of tools and dependencies used in modules 1 & 2 and can be used to create a similar conda environments on other machines. 
+3.	Run ```conda env create -f SVanalysis.yml```
+4.	Run ```conda activate SVanalysis```
+
 ***
 
 Next: [module2!](../module2/README.md)
