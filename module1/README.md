@@ -220,6 +220,15 @@ ivar trim -b raw_data/databases/nCoV-2019.primer.bed -p processed_reads/SRR12447
 3.	Run ```conda env create -f SVanalysis.yml```
 4.	Run ```conda activate SVanalysis```
 
+### List of tools used in Modules 1 & 2
+* [bbmap v38.90](https://jgi.doe.gov/data-and-tools/bbtools/bb-tools-user-guide/)
+* [fastqc v0.11.9](https://www.bioinformatics.babraham.ac.uk/projects/fastqc/)
+* [ivar v1.3.1](https://andersen-lab.github.io/ivar/html/manualpage.html)
+* [sra-tools v2.8.0](https://github.com/ncbi/sra-tools)
+* [samtools v1.10](http://www.htslib.org/)
+* [bwa v0.7.17](http://bio-bwa.sourceforge.net/)
+* [lofreq v2.1.5](https://csb5.github.io/lofreq/)
+* [manta v1.6.0](https://github.com/Illumina/manta)
 ***
 
 Next: [module2!](../module2/README.md)
